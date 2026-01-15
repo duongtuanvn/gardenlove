@@ -13,6 +13,8 @@ import ShippingPolicy from "./pages/ShippingPolicy";
 import FAQ from "./pages/FAQ";
 import LearningCenter from "./pages/LearningCenter";
 import GuideDetail from "./pages/GuideDetail";
+import PlantCare from "./pages/PlantCare";
+import PlantCareDetail from "./pages/PlantCareDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +37,8 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/guides" element={<LearningCenter />} />
             <Route path="/guides/:slug" element={<GuideDetail />} />
+            <Route path="/plant-care" element={<PlantCare />} />
+            <Route path="/plant-care/:slug" element={<PlantCareDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
