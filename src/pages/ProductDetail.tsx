@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
   AccordionContent,
@@ -26,6 +25,7 @@ import {
   Minus,
   Plus,
   Check,
+  Leaf,
 } from "lucide-react";
 
 import categoryIndoor from "@/assets/category-indoor.jpg";
@@ -173,7 +173,7 @@ export default function ProductDetail() {
       <Header />
 
       {/* Breadcrumb */}
-      <div className="bg-muted/30 py-3">
+      <div className="bg-muted/30 py-3 border-b border-border">
         <div className="container-custom">
           <nav className="flex items-center gap-2 text-sm flex-wrap">
             <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
@@ -199,19 +199,17 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Main Product Section */}
+      {/* SECTION 1: Product Overview */}
       <section className="container-custom py-8 md:py-12">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image Gallery */}
           <div className="space-y-4">
-            {/* Main Image */}
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted">
               <img
                 src={product.images[selectedImage]}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
-              {/* Badges */}
               <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                 {product.badges.map((badge) => (
                   <span
@@ -222,13 +220,11 @@ export default function ProductDetail() {
                   </span>
                 ))}
               </div>
-              {/* Wishlist */}
               <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors">
                 <Heart className="w-5 h-5 text-foreground" />
               </button>
             </div>
 
-            {/* Thumbnails */}
             <div className="flex gap-3 overflow-x-auto pb-2">
               {product.images.map((image, index) => (
                 <button
@@ -253,13 +249,11 @@ export default function ProductDetail() {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <p className="text-sm text-accent font-medium mb-2">{product.category}</p>
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
+              <p className="text-sm text-primary font-medium mb-2">{product.category}</p>
+              <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
                 {product.name}
               </h1>
-
-              {/* Rating */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -277,7 +271,6 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            {/* Price */}
             <div className="flex items-baseline gap-3">
               <span className="text-3xl font-bold text-foreground">
                 ${currentVariant.price.toFixed(2)}
@@ -291,7 +284,7 @@ export default function ProductDetail() {
 
             {/* Variants */}
             <div>
-              <label className="text-sm font-medium text-foreground mb-3 block">Size</label>
+              <label className="text-sm font-medium text-foreground mb-3 block">Select Size</label>
               <div className="flex flex-wrap gap-3">
                 {product.variants.map((variant, index) => (
                   <button
@@ -314,7 +307,6 @@ export default function ProductDetail() {
 
             {/* Quantity & Add to Cart */}
             <div className="flex flex-col sm:flex-row gap-4">
-              {/* Quantity Selector */}
               <div className="flex items-center border border-border rounded-lg">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -331,7 +323,6 @@ export default function ProductDetail() {
                 </button>
               </div>
 
-              {/* Add to Cart */}
               <Button
                 size="lg"
                 className="flex-1 h-12"
@@ -343,271 +334,220 @@ export default function ProductDetail() {
             </div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-4 py-6 border-t border-b border-border">
-              <div className="text-center">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <Shield className="w-5 h-5 text-primary" />
-                </div>
-                <p className="text-xs font-medium text-foreground">Live Arrival Guarantee</p>
+            <div className="flex flex-wrap gap-4 py-4 border-t border-border">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium">Live Arrival Guarantee</span>
               </div>
-              <div className="text-center">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <Truck className="w-5 h-5 text-primary" />
-                </div>
-                <p className="text-xs font-medium text-foreground">Free Shipping $75+</p>
+              <div className="flex items-center gap-2">
+                <Truck className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium">Free Shipping $75+</span>
               </div>
-              <div className="text-center">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                  <RefreshCw className="w-5 h-5 text-primary" />
-                </div>
-                <p className="text-xs font-medium text-foreground">30-Day Returns</p>
+              <div className="flex items-center gap-2">
+                <RefreshCw className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium">30-Day Returns</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Quick Care Info */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Sun className="w-5 h-5 text-accent" />
-                <div>
-                  <p className="text-xs text-muted-foreground">Light</p>
-                  <p className="text-sm font-medium">Bright Indirect</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Droplets className="w-5 h-5 text-primary" />
-                <div>
-                  <p className="text-xs text-muted-foreground">Water</p>
-                  <p className="text-sm font-medium">Every 1-2 weeks</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <Thermometer className="w-5 h-5 text-accent" />
-                <div>
-                  <p className="text-xs text-muted-foreground">Zone</p>
-                  <p className="text-sm font-medium">{product.careGuide.zone}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <PawPrint className="w-5 h-5 text-primary" />
-                <div>
-                  <p className="text-xs text-muted-foreground">Pet Safety</p>
-                  <p className="text-sm font-medium">
-                    {product.careGuide.petSafe ? "Pet Friendly" : "Toxic to Pets"}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Features */}
-            <div className="space-y-2">
+      {/* SECTION 2: Description */}
+      <section className="bg-muted/30 py-10 md:py-14">
+        <div className="container-custom">
+          <div className="flex items-center gap-3 mb-6">
+            <Leaf className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-display font-bold">About This Plant</h2>
+          </div>
+          <div className="max-w-3xl">
+            <p className="text-foreground leading-relaxed text-lg">{product.description}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
               {product.features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2">
+                <div key={index} className="flex items-center gap-2 bg-background px-4 py-2 rounded-full">
                   <Check className="w-4 h-4 text-primary" />
-                  <span className="text-sm text-foreground">{feature}</span>
+                  <span className="text-sm font-medium">{feature}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Product Details Tabs */}
-        <div className="mt-12 md:mt-16">
-          <Tabs defaultValue="description" className="w-full">
-            <TabsList className="w-full justify-start border-b border-border rounded-none bg-transparent h-auto p-0 space-x-8">
-              <TabsTrigger
-                value="description"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-3"
-              >
-                Description
-              </TabsTrigger>
-              <TabsTrigger
-                value="care"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-3"
-              >
-                Care Guide
-              </TabsTrigger>
-              <TabsTrigger
-                value="shipping"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-3"
-              >
-                Shipping
-              </TabsTrigger>
-              <TabsTrigger
-                value="reviews"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-0 pb-3"
-              >
-                Reviews ({product.reviewCount})
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="description" className="mt-6">
-              <div className="prose prose-green max-w-none">
-                <p className="text-foreground leading-relaxed">{product.description}</p>
+      {/* SECTION 3: Care Guide */}
+      <section className="py-10 md:py-14">
+        <div className="container-custom">
+          <h2 className="text-2xl font-display font-bold mb-8">Plant Care Guide</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-card border border-border rounded-xl p-5">
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <Sun className="w-6 h-6 text-accent" />
               </div>
-            </TabsContent>
-
-            <TabsContent value="care" className="mt-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="p-4 rounded-lg bg-muted/50">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Sun className="w-5 h-5 text-accent" />
-                      <h4 className="font-semibold">Sunlight</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{product.careGuide.sunlight}</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-muted/50">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Droplets className="w-5 h-5 text-primary" />
-                      <h4 className="font-semibold">Watering</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{product.careGuide.water}</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-4 rounded-lg bg-muted/50">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Thermometer className="w-5 h-5 text-accent" />
-                      <h4 className="font-semibold">Hardiness Zone</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{product.careGuide.zone}</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-muted/50">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Ruler className="w-5 h-5 text-primary" />
-                      <h4 className="font-semibold">Mature Size</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{product.careGuide.matureSize}</p>
-                  </div>
-                </div>
+              <h3 className="font-semibold text-foreground mb-2">Light</h3>
+              <p className="text-sm text-muted-foreground">{product.careGuide.sunlight}</p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-5">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Droplets className="w-6 h-6 text-primary" />
               </div>
-            </TabsContent>
-
-            <TabsContent value="shipping" className="mt-6">
-              <div className="space-y-4">
-                <p className="text-foreground">{product.shippingInfo}</p>
-                <div className="grid sm:grid-cols-3 gap-4 mt-6">
-                  <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-                    <Shield className="w-6 h-6 text-primary mb-2" />
-                    <h4 className="font-semibold mb-1">Live Arrival Guarantee</h4>
-                    <p className="text-sm text-muted-foreground">
-                      If your plant arrives damaged, we'll replace it free of charge.
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-                    <Truck className="w-6 h-6 text-primary mb-2" />
-                    <h4 className="font-semibold mb-1">Expert Packaging</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Each plant is carefully packaged to ensure safe transit.
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-                    <RefreshCw className="w-6 h-6 text-primary mb-2" />
-                    <h4 className="font-semibold mb-1">30-Day Returns</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Not satisfied? Return within 30 days for a full refund.
-                    </p>
-                  </div>
-                </div>
+              <h3 className="font-semibold text-foreground mb-2">Water</h3>
+              <p className="text-sm text-muted-foreground">{product.careGuide.water}</p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-5">
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <Thermometer className="w-6 h-6 text-accent" />
               </div>
-            </TabsContent>
+              <h3 className="font-semibold text-foreground mb-2">Hardiness Zone</h3>
+              <p className="text-sm text-muted-foreground">{product.careGuide.zone}</p>
+            </div>
+            <div className="bg-card border border-border rounded-xl p-5">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Ruler className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Mature Size</h3>
+              <p className="text-sm text-muted-foreground">{product.careGuide.matureSize}</p>
+            </div>
+          </div>
+          <div className="mt-4 flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-xl">
+            <PawPrint className="w-6 h-6 text-primary flex-shrink-0" />
+            <div>
+              <span className="font-semibold text-foreground">Pet Safety: </span>
+              <span className="text-muted-foreground">
+                {product.careGuide.petSafe
+                  ? "This plant is safe for pets."
+                  : "This plant is toxic to pets. Keep out of reach."}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <TabsContent value="reviews" className="mt-6">
-              <div className="space-y-6">
-                {/* Review Summary */}
-                <div className="flex items-center gap-6 p-6 bg-muted/50 rounded-xl">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-foreground">{product.rating}</div>
-                    <div className="flex items-center gap-1 mt-1">
+      {/* SECTION 4: Shipping & Guarantee */}
+      <section className="bg-muted/30 py-10 md:py-14">
+        <div className="container-custom">
+          <h2 className="text-2xl font-display font-bold mb-6">Shipping & Guarantee</h2>
+          <p className="text-foreground mb-8 max-w-2xl">{product.shippingInfo}</p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            <div className="bg-background border border-border rounded-xl p-5">
+              <Shield className="w-8 h-8 text-primary mb-3" />
+              <h3 className="font-semibold mb-2">Live Arrival Guarantee</h3>
+              <p className="text-sm text-muted-foreground">
+                If your plant arrives damaged, we'll replace it free of charge.
+              </p>
+            </div>
+            <div className="bg-background border border-border rounded-xl p-5">
+              <Truck className="w-8 h-8 text-primary mb-3" />
+              <h3 className="font-semibold mb-2">Expert Packaging</h3>
+              <p className="text-sm text-muted-foreground">
+                Each plant is carefully packaged to ensure safe transit.
+              </p>
+            </div>
+            <div className="bg-background border border-border rounded-xl p-5">
+              <RefreshCw className="w-8 h-8 text-primary mb-3" />
+              <h3 className="font-semibold mb-2">30-Day Returns</h3>
+              <p className="text-sm text-muted-foreground">
+                Not satisfied? Return within 30 days for a full refund.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: Customer Reviews */}
+      <section className="py-10 md:py-14">
+        <div className="container-custom">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-display font-bold">Customer Reviews</h2>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-5 h-5 ${
+                      i < Math.floor(product.rating)
+                        ? "fill-accent text-accent"
+                        : "fill-muted text-muted"
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="font-bold text-lg">{product.rating}</span>
+              <span className="text-muted-foreground">({product.reviewCount})</span>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {product.customerReviews.map((review) => (
+              <div
+                key={review.id}
+                className="bg-card border border-border rounded-xl p-5"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary">
+                    {review.author.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-sm">{review.author}</span>
+                      {review.verified && (
+                        <Check className="w-4 h-4 text-primary" />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 ${
-                            i < Math.floor(product.rating)
+                          className={`w-3 h-3 ${
+                            i < review.rating
                               ? "fill-accent text-accent"
                               : "fill-muted text-muted"
                           }`}
                         />
                       ))}
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Based on {product.reviewCount} reviews
-                    </p>
                   </div>
                 </div>
-
-                {/* Individual Reviews */}
-                <div className="space-y-4">
-                  {product.customerReviews.map((review) => (
-                    <div
-                      key={review.id}
-                      className="p-6 bg-card rounded-xl border border-border"
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-semibold">{review.author}</span>
-                            {review.verified && (
-                              <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
-                                Verified Purchase
-                              </span>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <div className="flex items-center">
-                              {[...Array(5)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  className={`w-3 h-3 ${
-                                    i < review.rating
-                                      ? "fill-accent text-accent"
-                                      : "fill-muted text-muted"
-                                  }`}
-                                />
-                              ))}
-                            </div>
-                            <span className="text-xs text-muted-foreground">{review.date}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <h4 className="font-medium mb-2">{review.title}</h4>
-                      <p className="text-sm text-muted-foreground">{review.content}</p>
-                    </div>
-                  ))}
-                </div>
+                <h4 className="font-medium mb-2">{review.title}</h4>
+                <p className="text-sm text-muted-foreground">{review.content}</p>
+                <p className="text-xs text-muted-foreground mt-3">{review.date}</p>
               </div>
-            </TabsContent>
-          </Tabs>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* FAQ Accordion */}
-        <div className="mt-12 md:mt-16">
-          <h2 className="text-2xl font-display font-bold text-foreground mb-6">
+      {/* SECTION 6: FAQ */}
+      <section className="bg-muted/30 py-10 md:py-14">
+        <div className="container-custom">
+          <h2 className="text-2xl font-display font-bold mb-6">
             Frequently Asked Questions
           </h2>
-          <Accordion type="single" collapsible className="w-full">
-            {product.faq.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="max-w-3xl">
+            <Accordion type="single" collapsible className="w-full">
+              {product.faq.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border-border">
+                  <AccordionTrigger className="text-left hover:text-primary">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
+      </section>
 
-        {/* Related Products */}
-        <div className="mt-12 md:mt-16">
-          <h2 className="text-2xl font-display font-bold text-foreground mb-6">
-            You May Also Like
-          </h2>
+      {/* SECTION 7: Related Products */}
+      <section className="py-10 md:py-14">
+        <div className="container-custom">
+          <h2 className="text-2xl font-display font-bold mb-6">You May Also Like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {relatedProducts.map((relatedProduct) => (
               <Link
                 key={relatedProduct.id}
                 to={`/products/${relatedProduct.slug}`}
-                className="group bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-card transition-all duration-300"
+                className="group bg-card rounded-xl overflow-hidden border border-border hover:shadow-card transition-all duration-300"
               >
                 <div className="aspect-square overflow-hidden">
                   <img
