@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ShoppingCart, Search, Leaf, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
 
 const navigation = [
   { name: "Shop All", href: "/collections" },
@@ -24,6 +25,7 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { itemCount } = useCart();
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
@@ -86,12 +88,16 @@ export default function Header() {
             <Button variant="ghost" size="icon" className="hidden sm:flex">
               <Search className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-accent-foreground text-xs rounded-full flex items-center justify-center font-semibold">
-                0
-              </span>
-            </Button>
+            <Link to="/cart" className="relative">
+              <Button variant="ghost" size="icon">
+                <ShoppingCart className="w-5 h-5" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-accent-foreground text-xs rounded-full flex items-center justify-center font-semibold">
+                    {itemCount > 99 ? "99+" : itemCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
             <Button variant="hero" size="sm" className="hidden sm:flex">
               Shop Now
             </Button>
