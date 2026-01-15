@@ -219,9 +219,9 @@ export default function Cart() {
                 {/* Continue Shopping Link */}
                 <Link
                   to="/collections"
-                  className="flex items-center justify-center gap-2 mt-4 text-sm text-primary hover:underline"
+                  className="flex items-center justify-center gap-2 mt-4 text-sm font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Continue Shopping
+                  ← Continue Shopping
                 </Link>
               </div>
             </div>
