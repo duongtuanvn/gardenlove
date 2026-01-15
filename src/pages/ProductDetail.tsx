@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -165,6 +167,7 @@ const getEstimatedDelivery = () => {
 
 export default function ProductDetail() {
   const { slug } = useParams();
+  const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -173,6 +176,27 @@ export default function ProductDetail() {
   const product = productData["monstera-deliciosa"];
 
   const currentVariant = product.variants[selectedVariant];
+
+  const handleAddToCart = () => {
+    addItem(
+      {
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        variant: currentVariant.name,
+        price: currentVariant.price,
+        image: product.images[0],
+      },
+      quantity
+    );
+    toast.success(`${product.name} added to cart`, {
+      description: `${quantity} × ${currentVariant.name}`,
+      action: {
+        label: "View Cart",
+        onClick: () => window.location.href = "/cart",
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -333,6 +357,7 @@ export default function ProductDetail() {
                 size="lg"
                 className="flex-1 h-12"
                 disabled={!currentVariant.inStock}
+                onClick={handleAddToCart}
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 {currentVariant.inStock ? "Add to Cart" : "Out of Stock"}
@@ -552,7 +577,7 @@ export default function ProductDetail() {
             <p className="text-sm text-muted-foreground">{currentVariant.name}</p>
             <p className="text-xl font-bold">${currentVariant.price.toFixed(2)}</p>
           </div>
-          <Button size="lg" className="flex-1" disabled={!currentVariant.inStock}>
+          <Button size="lg" className="flex-1" disabled={!currentVariant.inStock} onClick={handleAddToCart}>
             <ShoppingCart className="w-5 h-5 mr-2" />
             {currentVariant.inStock ? "Add to Cart" : "Out of Stock"}
           </Button>

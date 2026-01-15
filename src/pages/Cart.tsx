@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/context/CartContext";
 import {
   ChevronRight,
   Minus,
@@ -14,51 +15,10 @@ import {
   Tag,
 } from "lucide-react";
 
-import categoryIndoor from "@/assets/category-indoor.jpg";
-import categorySucculents from "@/assets/category-succulents.jpg";
-
-// Mock cart data
-const initialCartItems = [
-  {
-    id: 1,
-    name: "Monstera Deliciosa",
-    slug: "monstera-deliciosa",
-    variant: "Medium (6\" pot)",
-    price: 69.99,
-    quantity: 1,
-    image: categoryIndoor,
-    inStock: true,
-  },
-  {
-    id: 2,
-    name: "Echeveria Collection",
-    slug: "echeveria-collection",
-    variant: "Set of 3",
-    price: 34.99,
-    quantity: 2,
-    image: categorySucculents,
-    inStock: true,
-  },
-];
-
 export default function Cart() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const { items, updateQuantity, removeItem, subtotal } = useCart();
   const [promoCode, setPromoCode] = useState("");
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal >= 75 ? 0 : 9.99;
   const total = subtotal + shipping;
 
@@ -95,7 +55,7 @@ export default function Cart() {
           Shopping Cart
         </h1>
 
-        {cartItems.length === 0 ? (
+        {items.length === 0 ? (
           /* Empty Cart State */
           <div className="text-center py-16">
             <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mx-auto mb-6">
@@ -113,9 +73,9 @@ export default function Cart() {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
-              {cartItems.map(item => (
+              {items.map(item => (
                 <div
-                  key={item.id}
+                  key={`${item.id}-${item.variant}`}
                   className="flex gap-4 p-4 bg-card border border-border rounded-xl"
                 >
                   {/* Product Image */}
@@ -145,7 +105,7 @@ export default function Cart() {
                         </p>
                       </div>
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(item.id, item.variant)}
                         className="p-2 text-muted-foreground hover:text-destructive transition-colors"
                         aria-label="Remove item"
                       >
@@ -157,7 +117,7 @@ export default function Cart() {
                       {/* Quantity Selector */}
                       <div className="flex items-center border border-border rounded-lg">
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.id, item.variant, item.quantity - 1)}
                           className="w-9 h-9 flex items-center justify-center hover:bg-muted transition-colors"
                         >
                           <Minus className="w-4 h-4" />
@@ -166,7 +126,7 @@ export default function Cart() {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id, item.variant, item.quantity + 1)}
                           className="w-9 h-9 flex items-center justify-center hover:bg-muted transition-colors"
                         >
                           <Plus className="w-4 h-4" />
