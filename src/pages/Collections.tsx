@@ -372,15 +372,48 @@ export default function Collections() {
       </div>
 
       {/* Page Header */}
-      <div className="bg-gradient-to-b from-primary/5 to-background py-10 md:py-14">
-        <div className="container-custom text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4">
-            {category ? category.replace("-", " ") : "Shop All Plants"}
-          </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Browse our carefully curated collection of healthy, nursery-grown plants. Each plant
-            comes with our 100% Live Arrival Guarantee.
-          </p>
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-secondary/5 to-background">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-secondary rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+        </div>
+        
+        <div className="container-custom py-12 md:py-16 lg:py-20 relative">
+          <div className="max-w-3xl mx-auto text-center">
+            {/* Category Badge */}
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              {category ? "Collection" : "All Collections"}
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-6 capitalize tracking-tight">
+              {category ? category.replace("-", " ") : "Shop All Plants"}
+            </h1>
+            
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Browse our carefully curated collection of healthy, nursery-grown plants. Each plant
+              comes with our <span className="text-primary font-medium">100% Live Arrival Guarantee</span>.
+            </p>
+            
+            {/* Stats */}
+            <div className="flex items-center justify-center gap-8 mt-8 pt-8 border-t border-border/50">
+              <div className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{allProducts.length}+</p>
+                <p className="text-sm text-muted-foreground">Varieties</p>
+              </div>
+              <div className="w-px h-10 bg-border" />
+              <div className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">4.9</p>
+                <p className="text-sm text-muted-foreground">Avg Rating</p>
+              </div>
+              <div className="w-px h-10 bg-border" />
+              <div className="text-center">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">Free</p>
+                <p className="text-sm text-muted-foreground">Shipping $75+</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
