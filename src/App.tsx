@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Collections from "./pages/Collections";
 import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 import AboutUs from "./pages/AboutUs";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import FAQ from "./pages/FAQ";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/collections" element={<Collections />} />
           <Route path="/collections/:category" element={<Collections />} />
           <Route path="/products/:slug" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/shipping" element={<ShippingPolicy />} />
           <Route path="/faq" element={<FAQ />} />
