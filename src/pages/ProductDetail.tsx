@@ -15,17 +15,15 @@ import {
   Star,
   ChevronRight,
   Truck,
-  Shield,
   RefreshCw,
   Sun,
-  Droplets,
-  Thermometer,
-  Ruler,
-  PawPrint,
   Minus,
   Plus,
   Check,
   Leaf,
+  MapPin,
+  Shovel,
+  Calendar,
 } from "lucide-react";
 
 import categoryIndoor from "@/assets/category-indoor.jpg";
@@ -55,12 +53,10 @@ const productData = {
     description:
       "The Monstera Deliciosa, also known as the Swiss Cheese Plant, is one of the most iconic and beloved houseplants. Native to the tropical forests of Central America, this stunning plant features large, glossy, heart-shaped leaves that develop unique perforations as they mature.",
     careGuide: {
-      sunlight: "Bright indirect light. Avoid direct sunlight which can burn leaves.",
-      water: "Water when top 2 inches of soil are dry. Typically every 1-2 weeks.",
-      zone: "10-12 (Indoor in cooler zones)",
-      matureSize: "6-8 feet indoors, can reach 10+ feet with proper support",
-      petSafe: true,
-      difficulty: "Easy",
+      usdaZone: "10-12",
+      sunlight: "Bright indirect light",
+      soilType: "Well-draining potting mix",
+      planting: "Spring or early summer",
     },
     features: [
       "Air-purifying qualities",
@@ -68,8 +64,6 @@ const productData = {
       "Dramatic tropical aesthetic",
       "Pet-friendly (non-toxic)",
     ],
-    shippingInfo:
-      "Ships in 2-3 business days. Live plants ship Monday-Wednesday to ensure freshness. Weather holds may apply for extreme temperatures.",
     customerReviews: [
       {
         id: 1,
@@ -156,6 +150,18 @@ const relatedProducts = [
     rating: 4.6,
   },
 ];
+
+// Helper function to get estimated delivery date
+const getEstimatedDelivery = () => {
+  const today = new Date();
+  const deliveryDate = new Date(today);
+  deliveryDate.setDate(today.getDate() + 10);
+  return deliveryDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  });
+};
 
 export default function ProductDetail() {
   const { slug } = useParams();
@@ -333,19 +339,63 @@ export default function ProductDetail() {
               </Button>
             </div>
 
-            {/* Trust Badges */}
-            <div className="flex flex-wrap gap-4 py-4 border-t border-border">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">Live Arrival Guarantee</span>
+            {/* Plant Care Info */}
+            <div className="border-t border-border pt-6">
+              <h3 className="text-sm font-semibold text-foreground mb-4">Plant Care</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">USDA Zone</p>
+                    <p className="text-sm font-medium">{product.careGuide.usdaZone}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Sun className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Sunlight</p>
+                    <p className="text-sm font-medium">{product.careGuide.sunlight}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Shovel className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Soil Type</p>
+                    <p className="text-sm font-medium">{product.careGuide.soilType}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Planting</p>
+                    <p className="text-sm font-medium">{product.careGuide.planting}</p>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Truck className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">Free Shipping $75+</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <RefreshCw className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium">30-Day Returns</span>
+            </div>
+
+            {/* Shipping & Returns */}
+            <div className="border-t border-border pt-6">
+              <h3 className="text-sm font-semibold text-foreground mb-4">Shipping & Returns</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <Truck className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium">Estimated Delivery</p>
+                    <p className="text-sm text-muted-foreground">
+                      Order today, get it by <span className="font-medium text-foreground">{getEstimatedDelivery()}</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <RefreshCw className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium">Returns & Refunds</p>
+                    <p className="text-sm text-muted-foreground">
+                      30-day return policy. Full refund if plant arrives damaged.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -373,86 +423,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* SECTION 3: Care Guide */}
-      <section className="py-10 md:py-14">
-        <div className="container-custom">
-          <h2 className="text-2xl font-display font-bold mb-8">Plant Care Guide</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-card border border-border rounded-xl p-5">
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                <Sun className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Light</h3>
-              <p className="text-sm text-muted-foreground">{product.careGuide.sunlight}</p>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-5">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Droplets className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Water</h3>
-              <p className="text-sm text-muted-foreground">{product.careGuide.water}</p>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-5">
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                <Thermometer className="w-6 h-6 text-accent" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Hardiness Zone</h3>
-              <p className="text-sm text-muted-foreground">{product.careGuide.zone}</p>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-5">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Ruler className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold text-foreground mb-2">Mature Size</h3>
-              <p className="text-sm text-muted-foreground">{product.careGuide.matureSize}</p>
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-xl">
-            <PawPrint className="w-6 h-6 text-primary flex-shrink-0" />
-            <div>
-              <span className="font-semibold text-foreground">Pet Safety: </span>
-              <span className="text-muted-foreground">
-                {product.careGuide.petSafe
-                  ? "This plant is safe for pets."
-                  : "This plant is toxic to pets. Keep out of reach."}
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 4: Shipping & Guarantee */}
-      <section className="bg-muted/30 py-10 md:py-14">
-        <div className="container-custom">
-          <h2 className="text-2xl font-display font-bold mb-6">Shipping & Guarantee</h2>
-          <p className="text-foreground mb-8 max-w-2xl">{product.shippingInfo}</p>
-          <div className="grid sm:grid-cols-3 gap-4">
-            <div className="bg-background border border-border rounded-xl p-5">
-              <Shield className="w-8 h-8 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">Live Arrival Guarantee</h3>
-              <p className="text-sm text-muted-foreground">
-                If your plant arrives damaged, we'll replace it free of charge.
-              </p>
-            </div>
-            <div className="bg-background border border-border rounded-xl p-5">
-              <Truck className="w-8 h-8 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">Expert Packaging</h3>
-              <p className="text-sm text-muted-foreground">
-                Each plant is carefully packaged to ensure safe transit.
-              </p>
-            </div>
-            <div className="bg-background border border-border rounded-xl p-5">
-              <RefreshCw className="w-8 h-8 text-primary mb-3" />
-              <h3 className="font-semibold mb-2">30-Day Returns</h3>
-              <p className="text-sm text-muted-foreground">
-                Not satisfied? Return within 30 days for a full refund.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 5: Customer Reviews */}
+      {/* SECTION 3: Customer Reviews */}
       <section className="py-10 md:py-14">
         <div className="container-custom">
           <div className="flex items-center justify-between mb-8">
@@ -515,7 +486,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* SECTION 6: FAQ */}
+      {/* SECTION 4: FAQ */}
       <section className="bg-muted/30 py-10 md:py-14">
         <div className="container-custom">
           <h2 className="text-2xl font-display font-bold mb-6">
@@ -538,7 +509,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* SECTION 7: Related Products */}
+      {/* SECTION 5: Related Products */}
       <section className="py-10 md:py-14">
         <div className="container-custom">
           <h2 className="text-2xl font-display font-bold mb-6">You May Also Like</h2>
