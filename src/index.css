@@ -1,96 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Green Haven Nursery - Biophilic Design System */
+
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Nature-inspired palette */
+    --background: 45 30% 97%;
+    --foreground: 150 30% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 45 25% 95%;
+    --card-foreground: 150 30% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 45 30% 97%;
+    --popover-foreground: 150 30% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Deep forest green - primary brand */
+    --primary: 150 35% 27%;
+    --primary-foreground: 45 30% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sage green - secondary */
+    --secondary: 140 20% 42%;
+    --secondary-foreground: 45 30% 97%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Sand/cream - muted surfaces */
+    --muted: 35 25% 85%;
+    --muted-foreground: 150 15% 35%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Terracotta - accent/CTA */
+    --accent: 32 85% 44%;
+    --accent-foreground: 45 30% 97%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Earth brown */
+    --earth: 30 30% 40%;
+    --earth-foreground: 45 30% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --border: 35 20% 82%;
+    --input: 35 20% 82%;
+    --ring: 150 35% 27%;
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 0.75rem;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Custom tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(150 35% 20% / 0.85) 0%, hsl(150 30% 25% / 0.7) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(45 30% 97%) 0%, hsl(35 25% 92%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(32 85% 44%) 0%, hsl(25 80% 50%) 100%);
+    --shadow-soft: 0 4px 20px -4px hsl(150 30% 15% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(150 30% 15% / 0.12);
+    --shadow-elevated: 0 20px 50px -15px hsl(150 30% 15% / 0.2);
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar - keeping defaults */
+    --sidebar-background: 45 30% 97%;
+    --sidebar-foreground: 150 30% 15%;
+    --sidebar-primary: 150 35% 27%;
+    --sidebar-primary-foreground: 45 30% 97%;
+    --sidebar-accent: 35 25% 90%;
+    --sidebar-accent-foreground: 150 30% 15%;
+    --sidebar-border: 35 20% 82%;
+    --sidebar-ring: 150 35% 27%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 150 25% 8%;
+    --foreground: 45 20% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 150 20% 12%;
+    --card-foreground: 45 20% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 150 25% 8%;
+    --popover-foreground: 45 20% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 140 30% 50%;
+    --primary-foreground: 150 25% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 140 15% 25%;
+    --secondary-foreground: 45 20% 92%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 150 15% 18%;
+    --muted-foreground: 45 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 32 75% 55%;
+    --accent-foreground: 150 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --earth: 30 25% 55%;
+    --earth-foreground: 150 25% 8%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 140 30% 50%;
+
+    --sidebar-background: 150 25% 8%;
+    --sidebar-foreground: 45 20% 92%;
+    --sidebar-primary: 140 30% 50%;
+    --sidebar-primary-foreground: 150 25% 8%;
+    --sidebar-accent: 150 15% 15%;
+    --sidebar-accent-foreground: 45 20% 92%;
+    --sidebar-border: 150 15% 20%;
+    --sidebar-ring: 140 30% 50%;
   }
 }
 
@@ -100,6 +116,130 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Hero overlay gradient */
+  .hero-overlay {
+    background: var(--gradient-hero);
+  }
+
+  /* CTA gradient button */
+  .btn-cta {
+    background: var(--gradient-cta);
+    @apply text-white font-semibold px-8 py-4 rounded-full shadow-lg transition-all duration-300;
+  }
+
+  .btn-cta:hover {
+    @apply shadow-xl scale-105;
+    filter: brightness(1.05);
+  }
+
+  /* Card with gradient */
+  .card-gradient {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Soft shadow utilities */
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  /* Organic shapes */
+  .organic-blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  /* Text gradient */
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(150 35% 27%) 0%, hsl(140 20% 42%) 100%);
+  }
+
+  /* Trust badge styling */
+  .trust-badge {
+    @apply flex flex-col items-center text-center p-6 rounded-2xl bg-card transition-all duration-300;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .trust-badge:hover {
+    @apply -translate-y-1;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Category card */
+  .category-card {
+    @apply relative overflow-hidden rounded-2xl aspect-[4/5] cursor-pointer;
+  }
+
+  .category-card::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-300;
+  }
+
+  .category-card:hover::after {
+    @apply opacity-80;
+  }
+
+  /* Testimonial card */
+  .testimonial-card {
+    @apply bg-card p-8 rounded-3xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Animate fade in up */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Stagger delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+
+  /* Parallax scrolling */
+  .parallax-slow {
+    will-change: transform;
   }
 }
