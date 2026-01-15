@@ -372,8 +372,13 @@ export default function Collections() {
       </div>
 
       {/* Page Header */}
-      <div className="bg-muted/30 py-10 md:py-14">
-        <div className="container-custom text-center">
+      <div className="relative py-12 md:py-16 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${categoryIndoor})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/75" />
+        <div className="container-custom text-center relative">
           <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3 capitalize">
             {category ? category.replace("-", " ") : "Shop All Plants"}
           </h1>
