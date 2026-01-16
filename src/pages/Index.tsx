@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
-import TrustSection from "@/components/home/TrustSection";
+import PromoBanner from "@/components/home/PromoBanner";
 import CategoriesSection from "@/components/home/CategoriesSection";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
@@ -14,7 +14,7 @@ const Index = () => {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <TrustSection />
+        <PromoBanner />
         <CategoriesSection />
         <FeaturedProducts />
         <SeasonalSection />
