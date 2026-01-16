@@ -5,22 +5,22 @@ import { Button } from "@/components/ui/button";
 const promos = [
   {
     icon: Gift,
-    title: "Miễn phí vận chuyển",
-    subtitle: "Đơn hàng từ 500K",
+    title: "Free Shipping",
+    subtitle: "On orders over $75",
     color: "from-emerald-500 to-teal-600",
     bgColor: "bg-emerald-50 dark:bg-emerald-950/30",
   },
   {
     icon: Sparkles,
-    title: "Giảm 20%",
-    subtitle: "Khách hàng mới",
+    title: "20% Off",
+    subtitle: "First-time customers",
     color: "from-amber-500 to-orange-600",
     bgColor: "bg-amber-50 dark:bg-amber-950/30",
   },
   {
     icon: Leaf,
-    title: "Tặng phân bón",
-    subtitle: "Mua 3 cây trở lên",
+    title: "Free Plant Food",
+    subtitle: "With 3+ plants purchase",
     color: "from-primary to-primary/80",
     bgColor: "bg-primary/5",
   },
@@ -58,10 +58,10 @@ export default function PromoBanner() {
           <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <h2 className="text-2xl md:text-3xl font-display font-bold text-primary-foreground mb-2">
-                Bạn mới bắt đầu trồng cây?
+                New to Plant Parenting?
               </h2>
               <p className="text-primary-foreground/90 text-lg max-w-xl">
-                Khám phá hướng dẫn chăm sóc cây chi tiết và tìm loại cây phù hợp với không gian của bạn.
+                Discover detailed care guides and find the perfect plants for your space.
               </p>
             </div>
             
@@ -73,7 +73,7 @@ export default function PromoBanner() {
                 className="font-semibold shadow-lg hover:shadow-xl transition-shadow"
               >
                 <Link to="/plant-care">
-                  Hướng dẫn chăm sóc
+                  Care Guides
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
@@ -84,7 +84,7 @@ export default function PromoBanner() {
                 className="bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:text-primary-foreground font-semibold"
               >
                 <Link to="/collections">
-                  Xem bộ sưu tập
+                  Browse Collection
                 </Link>
               </Button>
             </div>
