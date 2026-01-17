@@ -6,6 +6,9 @@ import categorySucculents from "@/assets/category-succulents.jpg";
 import categoryTrees from "@/assets/category-trees.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
 
+import categoryPerennials from "@/assets/category-perennials.jpg";
+import categoryShrubs from "@/assets/category-shrubs.jpg";
+
 const products = [
   {
     id: 1,
@@ -14,7 +17,7 @@ const products = [
     price: 45.99,
     comparePrice: null,
     image: categoryIndoor,
-    badges: ["Best Seller", "Pet Safe"],
+    badges: ["Best Seller"],
     rating: 4.9,
     reviews: 234,
     category: "Indoor Plants",
@@ -54,6 +57,54 @@ const products = [
     rating: 4.7,
     reviews: 312,
     category: "Herbs",
+  },
+  {
+    id: 5,
+    name: "Lavender English",
+    slug: "lavender-english",
+    price: 18.99,
+    comparePrice: null,
+    image: categoryPerennials,
+    badges: ["Fragrant"],
+    rating: 4.8,
+    reviews: 198,
+    category: "Perennials",
+  },
+  {
+    id: 6,
+    name: "Hydrangea Endless Summer",
+    slug: "hydrangea-endless-summer",
+    price: 54.99,
+    comparePrice: 64.99,
+    image: categoryShrubs,
+    badges: ["Sale", "Popular"],
+    rating: 4.9,
+    reviews: 276,
+    category: "Shrubs",
+  },
+  {
+    id: 7,
+    name: "Snake Plant Laurentii",
+    slug: "snake-plant-laurentii",
+    price: 32.99,
+    comparePrice: null,
+    image: categoryIndoor,
+    badges: ["Low Light", "Pet Safe"],
+    rating: 4.9,
+    reviews: 421,
+    category: "Indoor Plants",
+  },
+  {
+    id: 8,
+    name: "Succulent Variety Pack",
+    slug: "succulent-variety-pack",
+    price: 39.99,
+    comparePrice: 49.99,
+    image: categorySucculents,
+    badges: ["Sale", "Gift Idea"],
+    rating: 4.7,
+    reviews: 183,
+    category: "Succulents",
   },
 ];
 
