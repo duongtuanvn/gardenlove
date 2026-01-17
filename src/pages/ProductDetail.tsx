@@ -552,13 +552,23 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* SECTION 3: Customer Reviews */}
-      <section className="py-10 md:py-14">
+      {/* SECTION 3: Customer Reviews - Judge.me Style */}
+      <section className="py-10 md:py-14" id="reviews">
         <div className="container-custom">
-          <div className="flex items-center justify-between mb-8">
+          {/* Review Header */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <h2 className="text-2xl font-display font-bold">Customer Reviews</h2>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
+            <Button variant="outline" className="w-fit">
+              Write a Review
+            </Button>
+          </div>
+
+          {/* Rating Summary - Judge.me Style */}
+          <div className="grid md:grid-cols-[300px_1fr] gap-8 mb-10 pb-8 border-b border-border">
+            {/* Left: Overall Rating */}
+            <div className="text-center md:text-left">
+              <div className="text-5xl font-bold text-foreground mb-2">{product.rating}</div>
+              <div className="flex items-center justify-center md:justify-start gap-1 mb-2">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
@@ -570,47 +580,121 @@ export default function ProductDetail() {
                   />
                 ))}
               </div>
-              <span className="font-bold text-lg">{product.rating}</span>
-              <span className="text-muted-foreground">({product.reviewCount})</span>
+              <p className="text-sm text-muted-foreground">
+                Based on {product.reviewCount} reviews
+              </p>
+            </div>
+
+            {/* Right: Rating Distribution Bars */}
+            <div className="space-y-2">
+              {[5, 4, 3, 2, 1].map((stars) => {
+                // Mock distribution data
+                const distributions: Record<number, number> = { 5: 75, 4: 15, 3: 7, 2: 2, 1: 1 };
+                const percentage = distributions[stars];
+                return (
+                  <div key={stars} className="flex items-center gap-3">
+                    <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors min-w-[60px]">
+                      {stars} <Star className="w-3 h-3 fill-accent text-accent" />
+                    </button>
+                    <div className="flex-1 h-2.5 bg-muted rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-accent rounded-full transition-all"
+                        style={{ width: `${percentage}%` }}
+                      />
+                    </div>
+                    <span className="text-sm text-muted-foreground min-w-[40px] text-right">
+                      {percentage}%
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          {/* Reviews List */}
+          <div className="space-y-6">
             {product.customerReviews.map((review) => (
               <div
                 key={review.id}
-                className="bg-card border border-border rounded-xl p-5"
+                className="bg-card border border-border rounded-xl p-6"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary">
-                    {review.author.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm">{review.author}</span>
-                      {review.verified && (
-                        <Check className="w-4 h-4 text-primary" />
-                      )}
+                {/* Review Header */}
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary text-lg">
+                      {review.author.charAt(0)}
                     </div>
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-3 h-3 ${
-                            i < review.rating
-                              ? "fill-accent text-accent"
-                              : "fill-muted text-muted"
-                          }`}
-                        />
-                      ))}
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-semibold">{review.author}</span>
+                        {review.verified && (
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                            <Check className="w-3 h-3" />
+                            Verified Buyer
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`w-4 h-4 ${
+                                i < review.rating
+                                  ? "fill-accent text-accent"
+                                  : "fill-muted text-muted"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground">
+                          {new Date(review.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                          })}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <h4 className="font-medium mb-2">{review.title}</h4>
-                <p className="text-sm text-muted-foreground">{review.content}</p>
-                <p className="text-xs text-muted-foreground mt-3">{review.date}</p>
+
+                {/* Review Content */}
+                <h4 className="font-semibold text-foreground mb-2">{review.title}</h4>
+                <p className="text-muted-foreground leading-relaxed">{review.content}</p>
+
+                {/* Review Actions - Judge.me Style */}
+                <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border">
+                  <span className="text-sm text-muted-foreground">Was this review helpful?</span>
+                  <button className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    Yes (0)
+                  </button>
+                  <button className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018c.163 0 .326.02.485.06L17 4m-7 10v2a2 2 0 002 2h.095c.5 0 .905-.405.905-.905 0-.714.211-1.412.608-2.006L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                    </svg>
+                    No (0)
+                  </button>
+                </div>
               </div>
             ))}
+          </div>
+
+          {/* Load More / Pagination */}
+          <div className="text-center mt-8">
+            <Button variant="outline" size="lg">
+              Load More Reviews
+            </Button>
+          </div>
+
+          {/* Powered by Judge.me */}
+          <div className="text-center mt-6">
+            <p className="text-xs text-muted-foreground">
+              Reviews powered by <span className="font-semibold">Judge.me</span>
+            </p>
           </div>
         </div>
       </section>
