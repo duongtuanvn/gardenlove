@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Leaf, Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
+import { Leaf, Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -140,21 +140,37 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
+          {/* Contact & Business Info */}
+          <div className="col-span-2 md:col-span-1">
+            <h4 className="font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-primary-foreground/70">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="block font-medium text-primary-foreground">Green Haven Nursery LLC</span>
+                  <span className="block">1234 Garden Way</span>
+                  <span className="block">Portland, OR 97201</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2 text-sm text-primary-foreground/70">
                 <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>(555) 123-4567</span>
+                <a href="tel:+15551234567" className="hover:text-primary-foreground transition-colors">
+                  (555) 123-4567
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-primary-foreground/70">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>hello@greenhaven.com</span>
+                <a href="mailto:support@greenhaven.com" className="hover:text-primary-foreground transition-colors">
+                  support@greenhaven.com
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-primary-foreground/70">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Portland, Oregon</span>
+                <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="block">Mon - Fri: 8AM - 6PM PST</span>
+                  <span className="block">Sat: 9AM - 4PM PST</span>
+                  <span className="block">Sun: Closed</span>
+                </div>
               </li>
             </ul>
           </div>
