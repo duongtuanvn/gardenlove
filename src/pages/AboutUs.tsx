@@ -10,6 +10,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
+// Images
+import aboutGreenhouse from "@/assets/about-greenhouse.jpg";
+import aboutPackaging from "@/assets/about-packaging.jpg";
+import aboutTeam from "@/assets/about-team.jpg";
+
 const AboutUs = () => {
   const shippingProcess = [
     {
@@ -168,12 +173,12 @@ const AboutUs = () => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gradient-to-br from-sage/30 to-forest/20 rounded-2xl p-8 text-center">
-                  <Leaf className="w-16 h-16 text-forest mx-auto mb-4" />
-                  <p className="text-forest font-medium text-lg mb-2">Partner Grower Network</p>
-                  <p className="text-sm text-muted-foreground">
-                    Plants sourced from trusted nurseries in Oregon, Florida, and California
-                  </p>
+                <div className="rounded-2xl overflow-hidden shadow-elevated">
+                  <img 
+                    src={aboutGreenhouse} 
+                    alt="Our greenhouse facility with rows of healthy plants" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
@@ -183,29 +188,38 @@ const AboutUs = () => {
         {/* How We Ship Live Plants */}
         <section className="py-12 md:py-16">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-10">
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-forest mb-4">
-                  How We Ship Live Plants
-                </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Shipping live plants requires special care. Here's our process to ensure your plants arrive healthy.
-                </p>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {shippingProcess.map((step, index) => (
-                  <div key={index} className="flex items-start gap-4 p-4 bg-card rounded-xl border">
-                    <div className="w-10 h-10 bg-forest/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <step.icon className="w-5 h-5 text-forest" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{step.title}</h3>
-                      <p className="text-sm text-muted-foreground">{step.description}</p>
-                    </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
+                <div className="order-2 md:order-1">
+                  <h2 className="text-2xl md:text-3xl font-display font-bold text-forest mb-4">
+                    How We Ship Live Plants
+                  </h2>
+                  <p className="text-muted-foreground mb-6">
+                    Shipping live plants requires special care. Here's our process to ensure your plants arrive healthy.
+                  </p>
+                  <div className="space-y-4">
+                    {shippingProcess.map((step, index) => (
+                      <div key={index} className="flex items-start gap-4 p-4 bg-card rounded-xl border">
+                        <div className="w-10 h-10 bg-forest/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <step.icon className="w-5 h-5 text-forest" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-foreground mb-1">{step.title}</h3>
+                          <p className="text-sm text-muted-foreground">{step.description}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                <div className="order-1 md:order-2 rounded-2xl overflow-hidden shadow-elevated">
+                  <img 
+                    src={aboutPackaging} 
+                    alt="Careful plant packaging process with biodegradable materials" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
-              <div className="mt-8 flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap gap-4 justify-center">
                 <Link to="/shipping">
                   <Button variant="outline" className="gap-2">
                     Shipping Info <ChevronRight className="w-4 h-4" />
@@ -246,13 +260,22 @@ const AboutUs = () => {
         <section className="py-12 md:py-16 bg-cream/50">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-10">
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-forest mb-4">
-                  What Makes Us Different
-                </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  We focus on what matters: healthy plants, clear policies, and real support when you need it.
-                </p>
+              <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
+                <div className="rounded-2xl overflow-hidden shadow-elevated">
+                  <img 
+                    src={aboutTeam} 
+                    alt="Our team inspecting plant quality in the greenhouse" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-display font-bold text-forest mb-4">
+                    What Makes Us Different
+                  </h2>
+                  <p className="text-muted-foreground mb-6">
+                    We focus on what matters: healthy plants, clear policies, and real support when you need it.
+                  </p>
+                </div>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {whatMakesUsDifferent.map((item, index) => (
