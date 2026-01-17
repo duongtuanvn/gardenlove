@@ -10,14 +10,21 @@ const TermsOfService = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 to-secondary">
-          <div className="container mx-auto px-4">
+        <section className="relative py-20 md:py-28 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 overflow-hidden">
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl" />
+          </div>
+          <div className="container mx-auto px-4 relative">
             <div className="max-w-3xl mx-auto text-center">
-              <FileText className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
+                <FileText className="w-4 h-4" />
+                <span className="text-sm font-medium">Legal Terms</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6">
                 Terms of Service
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-lg text-muted-foreground">
                 Please read these terms carefully before using our website or making a purchase.
               </p>
             </div>
