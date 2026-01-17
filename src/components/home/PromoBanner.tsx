@@ -1,6 +1,4 @@
-import { ArrowRight, Gift, Leaf, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Gift, Leaf, Sparkles } from "lucide-react";
 
 const promos = [
   {
@@ -28,10 +26,9 @@ const promos = [
 
 export default function PromoBanner() {
   return (
-    <section className="py-8 bg-gradient-to-r from-primary/5 via-background to-secondary/10">
+    <section className="py-6 bg-gradient-to-r from-primary/5 via-background to-secondary/10">
       <div className="container-custom">
-        {/* Promo Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {promos.map((promo, index) => (
             <div
               key={promo.title}
@@ -47,48 +44,6 @@ export default function PromoBanner() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* CTA Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary/90 to-primary/80 p-8 md:p-10">
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
-          
-          <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-primary-foreground mb-2">
-                New to Plant Parenting?
-              </h2>
-              <p className="text-primary-foreground/90 text-lg max-w-xl">
-                Discover detailed care guides and find the perfect plants for your space.
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button 
-                asChild
-                size="lg"
-                variant="secondary"
-                className="font-semibold shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <Link to="/plant-care">
-                  Care Guides
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-              <Button 
-                asChild
-                size="lg"
-                variant="outline"
-                className="bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:text-primary-foreground font-semibold"
-              >
-                <Link to="/collections">
-                  Browse Collection
-                </Link>
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
