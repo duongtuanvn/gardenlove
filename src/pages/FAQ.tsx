@@ -127,14 +127,21 @@ const FAQ = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-forest/10 to-sage/20">
-          <div className="container mx-auto px-4">
+        <section className="relative py-20 md:py-28 bg-gradient-to-br from-cream via-sage/20 to-forest/10 overflow-hidden">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-72 h-72 bg-forest/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-sage/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <HelpCircle className="w-16 h-16 text-forest mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-display font-bold text-forest mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-forest/10 rounded-full mb-6">
+                <HelpCircle className="w-4 h-4 text-forest" />
+                <span className="text-sm font-medium text-forest">Have Questions?</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-display font-bold text-forest mb-6">
                 Frequently Asked Questions
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                 Find answers to common questions about ordering, shipping, plant care, and more. 
                 Can't find what you're looking for? Contact our friendly support team.
               </p>
