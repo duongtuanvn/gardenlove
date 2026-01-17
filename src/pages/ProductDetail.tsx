@@ -362,28 +362,28 @@ export default function ProductDetail() {
       <Header />
 
       {/* Breadcrumb */}
-      <div className="bg-muted/30 py-3 border-b border-border">
+      <div className="bg-muted/30 py-3 border-b border-border overflow-hidden">
         <div className="container-custom">
-          <nav className="flex items-center gap-2 text-sm flex-wrap">
-            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <nav className="flex items-center gap-2 text-sm">
+            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors flex-shrink-0">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             <Link
               to="/collections"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
             >
               Shop
             </Link>
-            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             <Link
               to="/collections/indoor-plants"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
             >
               {product.category}
             </Link>
-            <ChevronRight className="w-4 h-4 text-muted-foreground" />
-            <span className="text-foreground font-medium">{product.name}</span>
+            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            <span className="text-foreground font-medium truncate">{product.name}</span>
           </nav>
         </div>
       </div>
