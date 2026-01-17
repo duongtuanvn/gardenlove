@@ -488,13 +488,13 @@ export default function ProductDetail() {
             {/* Variants */}
             <div>
               <label className="text-sm font-medium text-foreground mb-3 block">Select Option</label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2">
                 {product.variants.map((variant, index) => (
                   <button
                     key={variant.id}
                     onClick={() => setSelectedVariant(index)}
                     disabled={!variant.inStock}
-                    className={`px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all text-left ${
+                    className={`w-full px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all text-left break-words ${
                       selectedVariant === index
                         ? "border-primary bg-primary/5 text-primary"
                         : variant.inStock
@@ -502,7 +502,7 @@ export default function ProductDetail() {
                         : "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
                     }`}
                   >
-                    <span className="line-clamp-2">{variant.name}</span>
+                    <span className="block break-words whitespace-normal">{variant.name}</span>
                     {variant.price !== product.price && (
                       <span className="block text-xs mt-0.5 text-muted-foreground">
                         ${variant.price.toFixed(2)}
