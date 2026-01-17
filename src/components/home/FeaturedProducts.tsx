@@ -140,6 +140,11 @@ export default function FeaturedProducts() {
 }
 
 function ProductCard({ product }: { product: typeof products[0] }) {
+  // Calculate discount percentage
+  const discountPercent = product.comparePrice 
+    ? Math.round((1 - product.price / product.comparePrice) * 100)
+    : null;
+
   return (
     <div className="group bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-card transition-all duration-300">
       {/* Image */}
@@ -154,18 +159,22 @@ function ProductCard({ product }: { product: typeof products[0] }) {
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-          {product.badges.map((badge) => (
-            <span
-              key={badge}
-              className={`text-xs font-medium px-2 py-1 rounded-full ${
-                badge === "Sale" 
-                  ? "bg-accent text-accent-foreground" 
-                  : "bg-primary text-primary-foreground"
-              }`}
-            >
-              {badge}
+          {product.badges
+            .filter(badge => badge !== "Sale") // Remove "Sale" text badge, we'll show % instead
+            .map((badge) => (
+              <span
+                key={badge}
+                className="text-xs font-medium px-2 py-1 rounded-full bg-primary text-primary-foreground"
+              >
+                {badge}
+              </span>
+            ))}
+          {/* Show discount percentage badge if on sale */}
+          {discountPercent && (
+            <span className="text-xs font-bold px-2 py-1 rounded-full bg-accent text-accent-foreground">
+              -{discountPercent}%
             </span>
-          ))}
+          )}
         </div>
 
         {/* Wishlist */}
