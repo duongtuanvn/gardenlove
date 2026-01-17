@@ -177,24 +177,24 @@ const FAQ = () => {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-16 bg-secondary">
+        <section className="py-16 bg-primary border-b-4 border-accent">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-display font-bold mb-4 text-primary">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-4 text-primary-foreground">
               Still Have Questions?
             </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+            <p className="text-primary-foreground/80 mb-6 max-w-xl mx-auto">
               Our plant experts are here to help! Reach out and we'll get back to you within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="mailto:support@greenhaven-nursery.com" 
-                className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors"
               >
                 Email Support
               </a>
               <a 
                 href="/contact" 
-                className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 border-2 border-primary-foreground text-primary-foreground font-semibold rounded-lg hover:bg-primary-foreground/10 transition-colors"
               >
                 Contact Page
               </a>
