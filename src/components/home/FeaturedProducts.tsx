@@ -157,25 +157,14 @@ function ProductCard({ product }: { product: typeof products[0] }) {
           />
         </Link>
         
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-          {product.badges
-            .filter(badge => badge !== "Sale") // Remove "Sale" text badge, we'll show % instead
-            .map((badge) => (
-              <span
-                key={badge}
-                className="text-xs font-medium px-2 py-1 rounded-full bg-primary text-primary-foreground"
-              >
-                {badge}
-              </span>
-            ))}
-          {/* Show discount percentage badge if on sale */}
-          {discountPercent && (
-            <span className="text-xs font-bold px-2 py-1 rounded-full bg-accent text-accent-foreground">
+        {/* Sale Badge - Only show discount percentage */}
+        {discountPercent && (
+          <div className="absolute top-3 left-3">
+            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-accent text-accent-foreground shadow-sm">
               -{discountPercent}%
             </span>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Wishlist */}
         <button className="absolute top-3 right-3 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background">
