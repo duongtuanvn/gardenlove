@@ -362,28 +362,28 @@ export default function ProductDetail() {
       <Header />
 
       {/* Breadcrumb */}
-      <div className="bg-muted/30 py-3 border-b border-border overflow-hidden">
+      <div className="bg-muted/30 py-3 border-b border-border">
         <div className="container-custom">
-          <nav className="flex items-center gap-2 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors flex-shrink-0">
+          <nav className="flex items-center gap-2 text-sm flex-wrap">
+            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
               Home
             </Link>
-            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
             <Link
               to="/collections"
-              className="text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
+              className="text-muted-foreground hover:text-primary transition-colors"
             >
               Shop
             </Link>
-            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
             <Link
               to="/collections/indoor-plants"
-              className="text-muted-foreground hover:text-primary transition-colors flex-shrink-0"
+              className="text-muted-foreground hover:text-primary transition-colors"
             >
               {product.category}
             </Link>
-            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            <span className="text-foreground font-medium truncate">{product.name}</span>
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            <span className="text-foreground font-medium">{product.name}</span>
           </nav>
         </div>
       </div>
