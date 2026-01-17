@@ -2,10 +2,17 @@ import { useState, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { Search as SearchIcon, X, SlidersHorizontal, Leaf } from "lucide-react";
+import { Search as SearchIcon, X, Heart, ShoppingCart, Star, Leaf } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+import categoryIndoor from "@/assets/category-indoor.jpg";
+import categorySucculents from "@/assets/category-succulents.jpg";
+import categoryTrees from "@/assets/category-trees.jpg";
+import categoryHerbs from "@/assets/category-herbs.jpg";
+import categoryPerennials from "@/assets/category-perennials.jpg";
+import categoryShrubs from "@/assets/category-shrubs.jpg";
 
 // Sample products data - in a real app this would come from an API/database
 const allProducts = [
@@ -15,8 +22,10 @@ const allProducts = [
     slug: "fiddle-leaf-fig",
     category: "Indoor Plants",
     price: 49.99,
-    image: "/placeholder.svg",
-    description: "Popular statement plant with large, violin-shaped leaves",
+    comparePrice: null,
+    image: categoryIndoor,
+    rating: 4.4,
+    reviews: 267,
     tags: ["indoor", "tropical", "low-light tolerant"]
   },
   {
@@ -25,8 +34,10 @@ const allProducts = [
     slug: "monstera-deliciosa",
     category: "Indoor Plants",
     price: 39.99,
-    image: "/placeholder.svg",
-    description: "Iconic split-leaf tropical plant",
+    comparePrice: null,
+    image: categoryIndoor,
+    rating: 4.9,
+    reviews: 234,
     tags: ["indoor", "tropical", "easy care"]
   },
   {
@@ -35,8 +46,10 @@ const allProducts = [
     slug: "japanese-maple",
     category: "Trees",
     price: 89.99,
-    image: "/placeholder.svg",
-    description: "Elegant ornamental tree with stunning fall color",
+    comparePrice: null,
+    image: categoryTrees,
+    rating: 5.0,
+    reviews: 89,
     tags: ["outdoor", "tree", "shade", "fall color"]
   },
   {
@@ -45,8 +58,10 @@ const allProducts = [
     slug: "lavender",
     category: "Perennials",
     price: 12.99,
-    image: "/placeholder.svg",
-    description: "Fragrant purple flowering perennial",
+    comparePrice: null,
+    image: categoryPerennials,
+    rating: 4.6,
+    reviews: 198,
     tags: ["outdoor", "perennial", "fragrant", "drought tolerant"]
   },
   {
@@ -55,8 +70,10 @@ const allProducts = [
     slug: "aloe-vera",
     category: "Succulents",
     price: 14.99,
-    image: "/placeholder.svg",
-    description: "Medicinal succulent easy to grow indoors",
+    comparePrice: 19.99,
+    image: categorySucculents,
+    rating: 4.9,
+    reviews: 423,
     tags: ["indoor", "succulent", "easy care", "medicinal"]
   },
   {
@@ -65,8 +82,10 @@ const allProducts = [
     slug: "snake-plant",
     category: "Indoor Plants",
     price: 29.99,
-    image: "/placeholder.svg",
-    description: "Hardy low-light plant perfect for beginners",
+    comparePrice: null,
+    image: categoryIndoor,
+    rating: 4.9,
+    reviews: 421,
     tags: ["indoor", "low-light", "easy care", "air purifying"]
   },
   {
@@ -75,8 +94,10 @@ const allProducts = [
     slug: "basil",
     category: "Herbs",
     price: 6.99,
-    image: "/placeholder.svg",
-    description: "Aromatic culinary herb for cooking",
+    comparePrice: null,
+    image: categoryHerbs,
+    rating: 4.5,
+    reviews: 156,
     tags: ["herb", "edible", "annual", "kitchen"]
   },
   {
@@ -85,8 +106,10 @@ const allProducts = [
     slug: "rose-bush",
     category: "Shrubs",
     price: 34.99,
-    image: "/placeholder.svg",
-    description: "Classic flowering shrub with fragrant blooms",
+    comparePrice: 44.99,
+    image: categoryShrubs,
+    rating: 4.7,
+    reviews: 312,
     tags: ["outdoor", "shrub", "flowering", "fragrant"]
   },
   {
@@ -95,8 +118,10 @@ const allProducts = [
     slug: "pothos",
     category: "Indoor Plants",
     price: 19.99,
-    image: "/placeholder.svg",
-    description: "Trailing vine perfect for hanging baskets",
+    comparePrice: null,
+    image: categoryIndoor,
+    rating: 4.8,
+    reviews: 389,
     tags: ["indoor", "easy care", "low-light", "hanging"]
   },
   {
@@ -105,18 +130,22 @@ const allProducts = [
     slug: "hydrangea",
     category: "Shrubs",
     price: 44.99,
-    image: "/placeholder.svg",
-    description: "Showy flowering shrub with large bloom clusters",
+    comparePrice: 54.99,
+    image: categoryShrubs,
+    rating: 4.8,
+    reviews: 276,
     tags: ["outdoor", "shrub", "flowering", "shade tolerant"]
   },
   {
     id: 11,
     name: "Echeveria",
-    slug: "echeveria",
+    slug: "echeveria-collection",
     category: "Succulents",
-    price: 9.99,
-    image: "/placeholder.svg",
-    description: "Rosette-forming succulent in various colors",
+    price: 24.99,
+    comparePrice: 34.99,
+    image: categorySucculents,
+    rating: 4.8,
+    reviews: 156,
     tags: ["succulent", "indoor", "easy care", "colorful"]
   },
   {
@@ -125,8 +154,10 @@ const allProducts = [
     slug: "mint",
     category: "Herbs",
     price: 5.99,
-    image: "/placeholder.svg",
-    description: "Fast-growing aromatic herb for teas and cooking",
+    comparePrice: null,
+    image: categoryHerbs,
+    rating: 4.6,
+    reviews: 203,
     tags: ["herb", "edible", "perennial", "fragrant"]
   }
 ];
@@ -149,7 +180,7 @@ export default function Search() {
     if (query.trim()) {
       const searchTerms = query.toLowerCase().trim().split(/\s+/);
       results = results.filter(product => {
-        const searchableText = `${product.name} ${product.description} ${product.category} ${product.tags.join(" ")}`.toLowerCase();
+        const searchableText = `${product.name} ${product.category} ${product.tags.join(" ")}`.toLowerCase();
         return searchTerms.every(term => searchableText.includes(term));
       });
     }
@@ -275,33 +306,7 @@ export default function Search() {
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                 {filteredProducts.map((product) => (
-                  <Link
-                    key={product.id}
-                    to={`/product/${product.slug}`}
-                    className="group bg-card rounded-xl overflow-hidden border border-border hover:shadow-elevated transition-all duration-300"
-                  >
-                    <div className="aspect-square bg-muted relative overflow-hidden">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <Badge className="absolute top-3 left-3 bg-card/90 text-foreground text-xs">
-                        {product.category}
-                      </Badge>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                        {product.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                        {product.description}
-                      </p>
-                      <p className="text-lg font-bold text-primary mt-2">
-                        ${product.price.toFixed(2)}
-                      </p>
-                    </div>
-                  </Link>
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             ) : (
@@ -356,6 +361,77 @@ export default function Search() {
       </main>
 
       <Footer />
+    </div>
+  );
+}
+
+function ProductCard({ product }: { product: typeof allProducts[0] }) {
+  // Calculate discount percentage
+  const discountPercent = product.comparePrice 
+    ? Math.round((1 - product.price / product.comparePrice) * 100)
+    : null;
+
+  return (
+    <div className="group bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-card transition-all duration-300">
+      {/* Image */}
+      <div className="relative aspect-square overflow-hidden">
+        <Link to={`/products/${product.slug}`}>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </Link>
+
+        {/* Sale Badge - Only show discount percentage */}
+        {discountPercent && (
+          <div className="absolute top-3 left-3">
+            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-accent text-accent-foreground shadow-sm">
+              -{discountPercent}%
+            </span>
+          </div>
+        )}
+
+        {/* Wishlist */}
+        <button className="absolute top-3 right-3 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background">
+          <Heart className="w-4 h-4 text-foreground" />
+        </button>
+
+        {/* Quick Add */}
+        <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+          <Button variant="default" className="w-full" size="sm">
+            <ShoppingCart className="w-4 h-4" />
+            Add to Cart
+          </Button>
+        </div>
+      </div>
+
+      {/* Info */}
+      <div className="p-4">
+        <p className="text-xs text-muted-foreground mb-1">{product.category}</p>
+        <Link to={`/products/${product.slug}`}>
+          <h3 className="font-semibold text-foreground hover:text-primary transition-colors line-clamp-1">
+            {product.name}
+          </h3>
+        </Link>
+
+        {/* Rating */}
+        <div className="flex items-center gap-1 mt-2">
+          <Star className="w-4 h-4 fill-accent text-accent" />
+          <span className="text-sm font-medium">{product.rating}</span>
+          <span className="text-xs text-muted-foreground">({product.reviews})</span>
+        </div>
+
+        {/* Price */}
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-lg font-bold text-foreground">${product.price.toFixed(2)}</span>
+          {product.comparePrice && (
+            <span className="text-sm text-muted-foreground line-through">
+              ${product.comparePrice.toFixed(2)}
+            </span>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
