@@ -236,19 +236,21 @@ const AboutUs = () => {
         </section>
 
         {/* Live Arrival Guarantee Highlight */}
-        <section className="py-12 md:py-16 bg-forest text-white">
+        <section className="py-12 md:py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <Shield className="w-16 h-16 mx-auto mb-6 text-sage" />
-              <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">
+              <div className="w-16 h-16 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-4 text-white">
                 Live Arrival Guarantee
               </h2>
-              <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+              <p className="text-lg text-white/95 mb-6 max-w-2xl mx-auto leading-relaxed">
                 Every plant we ship is backed by our Live Arrival Guarantee. If your plant arrives damaged or dead, 
-                contact us within <strong>48 hours</strong> of delivery with photos. We'll send a replacement or issue a full refund—your choice.
+                contact us within <strong className="text-white font-bold">48 hours</strong> of delivery with photos. We'll send a replacement or issue a full refund—your choice.
               </p>
               <Link to="/guarantee">
-                <Button variant="secondary" size="lg" className="gap-2">
+                <Button size="lg" className="gap-2 bg-white text-primary hover:bg-white/90">
                   Learn More About Our Guarantee <ChevronRight className="w-4 h-4" />
                 </Button>
               </Link>
