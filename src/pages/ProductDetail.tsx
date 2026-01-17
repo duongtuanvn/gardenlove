@@ -439,7 +439,7 @@ export default function ProductDetail() {
           <div className="space-y-6">
             <div>
               <p className="text-sm text-primary font-medium mb-2">{product.category}</p>
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground mb-3 leading-tight line-clamp-3">
                 {product.name}
               </h1>
               <div className="flex items-center gap-3">
@@ -487,14 +487,14 @@ export default function ProductDetail() {
 
             {/* Variants */}
             <div>
-              <label className="text-sm font-medium text-foreground mb-3 block">Select Size</label>
-              <div className="flex flex-wrap gap-3">
+              <label className="text-sm font-medium text-foreground mb-3 block">Select Option</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {product.variants.map((variant, index) => (
                   <button
                     key={variant.id}
                     onClick={() => setSelectedVariant(index)}
                     disabled={!variant.inStock}
-                    className={`px-4 py-2.5 rounded-lg border-2 text-sm font-medium transition-all ${
+                    className={`px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all text-left ${
                       selectedVariant === index
                         ? "border-primary bg-primary/5 text-primary"
                         : variant.inStock
@@ -502,7 +502,12 @@ export default function ProductDetail() {
                         : "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
                     }`}
                   >
-                    {variant.name}
+                    <span className="line-clamp-2">{variant.name}</span>
+                    {variant.price !== product.price && (
+                      <span className="block text-xs mt-0.5 text-muted-foreground">
+                        ${variant.price.toFixed(2)}
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
