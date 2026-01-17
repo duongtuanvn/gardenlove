@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { Leaf, Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 const footerLinks = {
   shop: [
@@ -29,32 +27,6 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground">
-      {/* Newsletter Section */}
-      <div className="border-b border-primary-foreground/10">
-        <div className="container-custom section-padding">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl md:text-3xl font-display font-bold mb-4">
-              Join the Green Haven Family
-            </h3>
-            <p className="text-primary-foreground/80 mb-6">
-              Get 10% off your first order, plus exclusive plant care tips, seasonal deals, and early access to new arrivals.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-primary-foreground"
-              />
-              <Button variant="hero" className="whitespace-nowrap">
-                Subscribe
-              </Button>
-            </form>
-            <p className="text-xs text-primary-foreground/60 mt-3">
-              By subscribing, you agree to our Privacy Policy. Unsubscribe anytime.
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Main Footer */}
       <div className="container-custom py-12 lg:py-16">
