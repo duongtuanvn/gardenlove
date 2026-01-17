@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -251,6 +252,7 @@ const getEstimatedDelivery = () => {
 
 export default function ProductDetail() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(0);
@@ -277,9 +279,24 @@ export default function ProductDetail() {
       description: `${quantity} × ${currentVariant.name}`,
       action: {
         label: "View Cart",
-        onClick: () => window.location.href = "/cart",
+        onClick: () => navigate("/cart"),
       },
     });
+  };
+
+  const handleBuyNow = () => {
+    addItem(
+      {
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        variant: currentVariant.name,
+        price: currentVariant.price,
+        image: product.images[0],
+      },
+      quantity
+    );
+    navigate("/cart");
   };
 
   return (
@@ -318,31 +335,33 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image Gallery */}
           <div className="space-y-4">
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted">
-              <img
-                src={product.images[selectedImage]}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
+            <div className="relative w-full rounded-2xl overflow-hidden bg-muted">
+              <div className="aspect-[4/3] sm:aspect-square">
+                <img
+                  src={product.images[selectedImage]}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               {/* Sale Badge - Only show discount percentage */}
               {product.comparePrice && (
-                <div className="absolute top-4 left-4">
-                  <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-accent text-accent-foreground shadow-sm">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+                  <span className="text-xs sm:text-sm font-bold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-accent text-accent-foreground shadow-sm">
                     -{Math.round((1 - product.price / product.comparePrice) * 100)}%
                   </span>
                 </div>
               )}
-              <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors">
-                <Heart className="w-5 h-5 text-foreground" />
+              <button className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors">
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
               </button>
             </div>
 
-            <div className="flex gap-3 overflow-x-auto pb-2">
+            <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
               {product.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                  className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
                     selectedImage === index
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-transparent hover:border-border"
@@ -432,32 +451,45 @@ export default function ProductDetail() {
             </div>
 
             {/* Quantity & Add to Cart */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex items-center border border-border rounded-lg">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-12 h-12 flex items-center justify-center hover:bg-muted transition-colors"
-                >
-                  <Minus className="w-4 h-4" />
-                </button>
-                <span className="w-12 text-center font-medium">{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="w-12 h-12 flex items-center justify-center hover:bg-muted transition-colors"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
+            <div className="space-y-3">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center border border-border rounded-lg">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-muted transition-colors"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="w-10 sm:w-12 text-center font-medium">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-muted transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
-              <Button
-                size="lg"
-                className="flex-1 h-12"
-                disabled={!currentVariant.inStock}
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                {currentVariant.inStock ? "Add to Cart" : "Out of Stock"}
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  size="lg"
+                  className="flex-1 h-12 sm:h-14 text-base"
+                  disabled={!currentVariant.inStock}
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  {currentVariant.inStock ? "Add to Cart" : "Out of Stock"}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="flex-1 h-12 sm:h-14 text-base border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  disabled={!currentVariant.inStock}
+                  onClick={handleBuyNow}
+                >
+                  Buy Now
+                </Button>
+              </div>
             </div>
 
             {/* Plant Care Info */}
@@ -802,18 +834,38 @@ export default function ProductDetail() {
       </section>
 
       {/* Sticky Add to Cart (Mobile) */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border lg:hidden z-40">
-        <div className="flex items-center gap-4">
-          <div>
-            <p className="text-sm text-muted-foreground">{currentVariant.name}</p>
-            <p className="text-xl font-bold">${currentVariant.price.toFixed(2)}</p>
+      <div className="fixed bottom-0 left-0 right-0 p-3 sm:p-4 bg-background border-t border-border lg:hidden z-40 safe-area-pb">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex-shrink-0">
+            <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">{currentVariant.name}</p>
+            <p className="text-lg sm:text-xl font-bold">${currentVariant.price.toFixed(2)}</p>
           </div>
-          <Button size="lg" className="flex-1" disabled={!currentVariant.inStock} onClick={handleAddToCart}>
-            <ShoppingCart className="w-5 h-5 mr-2" />
-            {currentVariant.inStock ? "Add to Cart" : "Out of Stock"}
-          </Button>
+          <div className="flex-1 flex gap-2">
+            <Button 
+              size="lg" 
+              className="flex-1 h-11 sm:h-12 text-sm sm:text-base px-3 sm:px-4" 
+              disabled={!currentVariant.inStock} 
+              onClick={handleAddToCart}
+            >
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
+              <span className="hidden xs:inline">Add to Cart</span>
+              <span className="xs:hidden">Cart</span>
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="flex-1 h-11 sm:h-12 text-sm sm:text-base px-3 sm:px-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground" 
+              disabled={!currentVariant.inStock} 
+              onClick={handleBuyNow}
+            >
+              Buy Now
+            </Button>
+          </div>
         </div>
       </div>
+      
+      {/* Spacer for sticky bottom bar on mobile */}
+      <div className="h-20 lg:hidden" />
 
       <Footer />
     </div>
