@@ -34,7 +34,25 @@ import categoryTrees from "@/assets/category-trees.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
 
 // Mock product data
-const productData = {
+const productData: Record<string, {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  comparePrice: number | null;
+  images: string[];
+  badges: string[];
+  rating: number;
+  reviewCount: number;
+  category: string;
+  inStock: boolean;
+  variants: { id: number; name: string; price: number; comparePrice?: number | null; inStock: boolean }[];
+  description: string;
+  careGuide: { usdaZone: string; sunlight: string; soilType: string; planting: string };
+  features: string[];
+  customerReviews: { id: number; author: string; rating: number; date: string; title: string; content: string; verified: boolean }[];
+  faq: { question: string; answer: string }[];
+}> = {
   "monstera-deliciosa": {
     id: 1,
     name: "Monstera Deliciosa",
@@ -116,6 +134,72 @@ const productData = {
       },
     ],
   },
+  "echeveria-collection": {
+    id: 2,
+    name: "Echeveria Collection",
+    slug: "echeveria-collection",
+    price: 24.99,
+    comparePrice: 34.99,
+    images: [categorySucculents, categoryIndoor, categoryHerbs, categoryTrees],
+    badges: ["Easy Care"],
+    rating: 4.8,
+    reviewCount: 156,
+    category: "Succulents",
+    inStock: true,
+    variants: [
+      { id: 1, name: "3-Pack", price: 24.99, comparePrice: 34.99, inStock: true },
+      { id: 2, name: "6-Pack", price: 44.99, comparePrice: 59.99, inStock: true },
+      { id: 3, name: "12-Pack", price: 79.99, comparePrice: 99.99, inStock: true },
+    ],
+    description:
+      "Our Echeveria Collection features a beautiful assortment of rosette-forming succulents in various colors and sizes. These drought-tolerant plants are perfect for beginners and make stunning additions to any sunny windowsill or outdoor garden.",
+    careGuide: {
+      usdaZone: "9-11",
+      sunlight: "Full sun to bright light",
+      soilType: "Well-draining cactus mix",
+      planting: "Spring or summer",
+    },
+    features: [
+      "Drought tolerant",
+      "Low maintenance",
+      "Vibrant colors",
+      "Great for beginners",
+    ],
+    customerReviews: [
+      {
+        id: 1,
+        author: "Emily K.",
+        rating: 5,
+        date: "2024-01-12",
+        title: "Beautiful variety!",
+        content:
+          "Received 3 gorgeous echeverias, each one different and healthy. Very happy with my purchase!",
+        verified: true,
+      },
+      {
+        id: 2,
+        author: "David P.",
+        rating: 5,
+        date: "2024-01-08",
+        title: "Perfect condition",
+        content:
+          "Plants arrived well-packaged and in perfect condition. Colors are even more vibrant in person.",
+        verified: true,
+      },
+    ],
+    faq: [
+      {
+        question: "How often should I water succulents?",
+        answer:
+          "Water only when the soil is completely dry, typically every 1-2 weeks in summer and less frequently in winter. Overwatering is the most common cause of succulent death.",
+      },
+      {
+        question: "Can these be planted outdoors?",
+        answer:
+          "Yes, in USDA zones 9-11 they can be planted outdoors year-round. In colder climates, grow them in containers that can be brought indoors during winter.",
+      },
+    ],
+  },
 };
 
 const relatedProducts = [
@@ -172,8 +256,8 @@ export default function ProductDetail() {
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // Get product data (default to monstera for demo)
-  const product = productData["monstera-deliciosa"];
+  // Get product data based on slug, fallback to monstera for demo
+  const product = (slug && productData[slug]) ? productData[slug] : productData["monstera-deliciosa"];
 
   const currentVariant = product.variants[selectedVariant];
 
@@ -249,6 +333,12 @@ export default function ProductDetail() {
                     {badge}
                   </span>
                 ))}
+                {/* Sale badge with percentage */}
+                {product.comparePrice && (
+                  <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-accent text-accent-foreground">
+                    -{Math.round((1 - product.price / product.comparePrice) * 100)}%
+                  </span>
+                )}
               </div>
               <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors">
                 <Heart className="w-5 h-5 text-foreground" />
@@ -301,16 +391,30 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-bold text-foreground">
-                ${currentVariant.price.toFixed(2)}
-              </span>
-              {product.comparePrice && (
-                <span className="text-lg text-muted-foreground line-through">
-                  ${product.comparePrice.toFixed(2)}
-                </span>
-              )}
-            </div>
+            {/* Price with Sale styling */}
+            {(() => {
+              const variantComparePrice = currentVariant.comparePrice ?? product.comparePrice;
+              const hasSale = variantComparePrice && variantComparePrice > currentVariant.price;
+              const discountPercent = hasSale ? Math.round((1 - currentVariant.price / variantComparePrice) * 100) : 0;
+              
+              return (
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className={`text-3xl font-bold ${hasSale ? "text-accent" : "text-foreground"}`}>
+                    ${currentVariant.price.toFixed(2)}
+                  </span>
+                  {hasSale && (
+                    <>
+                      <span className="text-xl text-muted-foreground line-through">
+                        ${variantComparePrice.toFixed(2)}
+                      </span>
+                      <span className="text-sm font-bold px-2.5 py-1 rounded-full bg-accent/10 text-accent">
+                        Save {discountPercent}%
+                      </span>
+                    </>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Variants */}
             <div>
