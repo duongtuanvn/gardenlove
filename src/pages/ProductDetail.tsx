@@ -27,6 +27,7 @@ import {
   MapPin,
   Shovel,
   Calendar,
+  Zap,
 } from "lucide-react";
 
 import categoryIndoor from "@/assets/category-indoor.jpg";
@@ -470,10 +471,10 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Button
                   size="lg"
-                  className="flex-1 h-12 sm:h-14 text-base"
+                  className="w-full h-14 text-base font-semibold"
                   disabled={!currentVariant.inStock}
                   onClick={handleAddToCart}
                 >
@@ -482,11 +483,11 @@ export default function ProductDetail() {
                 </Button>
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="flex-1 h-12 sm:h-14 text-base border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  className="w-full h-14 text-base font-semibold bg-accent hover:bg-accent/90 text-accent-foreground"
                   disabled={!currentVariant.inStock}
                   onClick={handleBuyNow}
                 >
+                  <Zap className="w-5 h-5 mr-2" />
                   Buy Now
                 </Button>
               </div>
@@ -834,33 +835,26 @@ export default function ProductDetail() {
       </section>
 
       {/* Sticky Add to Cart (Mobile) */}
-      <div className="fixed bottom-0 left-0 right-0 p-3 sm:p-4 bg-background border-t border-border lg:hidden z-40 safe-area-pb">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex-shrink-0">
-            <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">{currentVariant.name}</p>
-            <p className="text-lg sm:text-xl font-bold">${currentVariant.price.toFixed(2)}</p>
-          </div>
-          <div className="flex-1 flex gap-2">
-            <Button 
-              size="lg" 
-              className="flex-1 h-11 sm:h-12 text-sm sm:text-base px-3 sm:px-4" 
-              disabled={!currentVariant.inStock} 
-              onClick={handleAddToCart}
-            >
-              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" />
-              <span className="hidden xs:inline">Add to Cart</span>
-              <span className="xs:hidden">Cart</span>
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="flex-1 h-11 sm:h-12 text-sm sm:text-base px-3 sm:px-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground" 
-              disabled={!currentVariant.inStock} 
-              onClick={handleBuyNow}
-            >
-              Buy Now
-            </Button>
-          </div>
+      <div className="fixed bottom-0 left-0 right-0 p-3 bg-background border-t border-border lg:hidden z-40 safe-area-pb">
+        <div className="grid grid-cols-2 gap-2">
+          <Button 
+            size="lg" 
+            className="h-12 text-sm font-semibold" 
+            disabled={!currentVariant.inStock} 
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="w-4 h-4 mr-1.5" />
+            Add to Cart
+          </Button>
+          <Button 
+            size="lg" 
+            className="h-12 text-sm font-semibold bg-accent hover:bg-accent/90 text-accent-foreground" 
+            disabled={!currentVariant.inStock} 
+            onClick={handleBuyNow}
+          >
+            <Zap className="w-4 h-4 mr-1.5" />
+            Buy Now
+          </Button>
         </div>
       </div>
       
