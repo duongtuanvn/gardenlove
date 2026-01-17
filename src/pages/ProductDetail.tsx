@@ -530,15 +530,61 @@ export default function ProductDetail() {
             <Leaf className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-display font-bold">About This Plant</h2>
           </div>
-          <div className="max-w-3xl">
-            <p className="text-foreground leading-relaxed text-lg">{product.description}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {product.features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-2 bg-background px-4 py-2 rounded-full">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">{feature}</span>
-                </div>
-              ))}
+          <div className="prose prose-lg max-w-none">
+            <p className="text-foreground leading-relaxed text-lg mb-6">
+              Transform your garden into a lush tropical paradise with this set of 2 Bougainvillea Plants. Famous for their intense, paper-like bracts that appear in brilliant shades of magenta, red, orange, and purple, these flowering vines are the ultimate choice for adding vertical color to your landscape. Whether you are looking to cover a bare wall, decorate an arbor, or simply brighten up a sunny patio with container plants, these vigorous growers deliver spectacular results. They are highly resilient, thriving in heat and requiring little water once established, making them a favorite among water-wise gardeners.
+            </p>
+
+            <h3 className="text-xl font-display font-bold text-foreground mt-8 mb-4">Key Features:</h3>
+            <ul className="space-y-3 text-foreground list-none pl-0">
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span><strong className="font-semibold">Vibrant Blooms:</strong> Produces profuse, colorful bracts throughout spring, summer, and fall for long-lasting color.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span><strong className="font-semibold">Impressive Height:</strong> Can climb 20 to 30 feet tall when provided with structural support like a trellis or fence.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span><strong className="font-semibold">Drought Tolerance:</strong> Requires minimal watering once the root system is established, perfect for xeriscaping.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span><strong className="font-semibold">Versatile Growth:</strong> Excellent for ground cover, climbing structures, or hanging baskets and containers.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span><strong className="font-semibold">Climate Suitability:</strong> Thrives outdoors in USDA Zones 9-11; ideal as an indoor-outdoor plant in cooler zones.</span>
+              </li>
+            </ul>
+
+            <p className="text-foreground leading-relaxed text-lg mt-8 mb-8">
+              Adding these Bougainvillea plants to your collection brings more than just visual appeal; it brings a hardy, low-maintenance solution to garden design. Their thorny branches can act as an effective natural security barrier when planted along fences, while their nectar-rich blooms serve as a magnet for butterflies and hummingbirds, enhancing the biodiversity of your yard. With their ability to tolerate poor soil and intense heat, these vines are forgiving and rewarding, offering a high return of beauty for very little maintenance effort.
+            </p>
+
+            <h3 className="text-xl font-display font-bold text-foreground mt-8 mb-6">Frequently Asked Questions:</h3>
+            <div className="space-y-6">
+              <div>
+                <p className="font-semibold text-foreground mb-2">Q: How much sun do Bougainvillea plants need?</p>
+                <p className="text-muted-foreground">A: These plants are sun-lovers and require at least 6 hours of full, direct sunlight daily to produce the maximum amount of blooms.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground mb-2">Q: Are these vines hard to maintain?</p>
+                <p className="text-muted-foreground">A: No, they are relatively low maintenance. They are drought-tolerant once established and mainly require pruning to keep them in your desired shape.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground mb-2">Q: Can I grow Bougainvillea in a pot?</p>
+                <p className="text-muted-foreground">A: Absolutely. They thrive in containers where their root growth is slightly restricted, which often encourages heavier blooming. Just ensure the pot has drainage holes.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground mb-2">Q: What USDA zones are best for these plants?</p>
+                <p className="text-muted-foreground">A: They grow best outdoors in USDA Zones 9 through 11. In colder climates (Zones 4-8), they should be grown in containers and brought inside before the first frost.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground mb-2">Q: When do Bougainvillea vines bloom?</p>
+                <p className="text-muted-foreground">A: In warm climates, they can bloom intermittently year-round, with the heaviest flush of flowers occurring in the spring, summer, and autumn months.</p>
+              </div>
             </div>
           </div>
         </div>
