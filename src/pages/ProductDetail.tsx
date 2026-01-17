@@ -436,7 +436,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0 overflow-hidden">
             <div>
               <p className="text-sm text-primary font-medium mb-2">{product.category}</p>
               <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground mb-3 leading-tight line-clamp-3">
@@ -486,7 +486,7 @@ export default function ProductDetail() {
             })()}
 
             {/* Variants */}
-            <div>
+            <div className="min-w-0">
               <label className="text-sm font-medium text-foreground mb-3 block">Select Option</label>
               <div className="flex flex-col sm:grid sm:grid-cols-2 gap-2">
                 {product.variants.map((variant, index) => (
@@ -494,7 +494,8 @@ export default function ProductDetail() {
                     key={variant.id}
                     onClick={() => setSelectedVariant(index)}
                     disabled={!variant.inStock}
-                    className={`w-full px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all text-left break-words ${
+                    style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
+                    className={`w-full px-3 py-2.5 rounded-lg border-2 text-sm font-medium transition-all text-left ${
                       selectedVariant === index
                         ? "border-primary bg-primary/5 text-primary"
                         : variant.inStock
@@ -502,7 +503,7 @@ export default function ProductDetail() {
                         : "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
                     }`}
                   >
-                    <span className="block break-words whitespace-normal">{variant.name}</span>
+                    {variant.name}
                     {variant.price !== product.price && (
                       <span className="block text-xs mt-0.5 text-muted-foreground">
                         ${variant.price.toFixed(2)}
