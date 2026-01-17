@@ -10,14 +10,21 @@ const ReturnsRefunds = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 to-secondary">
-          <div className="container mx-auto px-4">
+        <section className="relative py-20 md:py-28 bg-gradient-to-br from-primary/10 via-accent/5 to-primary/5 overflow-hidden">
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl" />
+          </div>
+          <div className="container mx-auto px-4 relative">
             <div className="max-w-3xl mx-auto text-center">
-              <RotateCcw className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
+                <RotateCcw className="w-4 h-4" />
+                <span className="text-sm font-medium">Easy Returns</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6">
                 Returns & Refunds
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-lg text-muted-foreground">
                 Our policies for returns, refunds, and exchanges. We want you to be completely satisfied.
               </p>
             </div>
@@ -192,35 +199,35 @@ const ReturnsRefunds = () => {
               </div>
 
               {/* How to Start a Return */}
-              <div className="bg-secondary rounded-xl p-6 md:p-8">
-                <h2 className="text-xl font-display font-bold text-primary mb-4">How to Start a Return</h2>
-                <ol className="space-y-4">
+              <div className="bg-card border rounded-xl p-6 md:p-8">
+                <h2 className="text-xl font-display font-bold text-primary mb-6">How to Start a Return</h2>
+                <ol className="space-y-5">
                   <li className="flex gap-4">
-                    <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">1</span>
+                    <span className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">1</span>
                     <div>
-                      <p className="font-medium text-foreground">Email Us</p>
-                      <p className="text-sm text-muted-foreground">Send an email to <a href="mailto:support@greenhaven-nursery.com" className="text-primary hover:underline">support@greenhaven-nursery.com</a> with your order number and reason for return.</p>
+                      <p className="font-semibold text-foreground">Email Us</p>
+                      <p className="text-muted-foreground">Send an email to <a href="mailto:support@greenhaven-nursery.com" className="text-primary hover:underline font-medium">support@greenhaven-nursery.com</a> with your order number and reason for return.</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
-                    <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">2</span>
+                    <span className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">2</span>
                     <div>
-                      <p className="font-medium text-foreground">Receive Instructions</p>
-                      <p className="text-sm text-muted-foreground">We'll reply within 1 business day with return authorization and shipping instructions.</p>
+                      <p className="font-semibold text-foreground">Receive Instructions</p>
+                      <p className="text-muted-foreground">We'll reply within 1 business day with return authorization and shipping instructions.</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
-                    <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">3</span>
+                    <span className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">3</span>
                     <div>
-                      <p className="font-medium text-foreground">Ship Your Return</p>
-                      <p className="text-sm text-muted-foreground">Pack the item securely and ship to the address provided. Keep your tracking number!</p>
+                      <p className="font-semibold text-foreground">Ship Your Return</p>
+                      <p className="text-muted-foreground">Pack the item securely and ship to the address provided. Keep your tracking number!</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
-                    <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">4</span>
+                    <span className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">4</span>
                     <div>
-                      <p className="font-medium text-foreground">Receive Your Refund</p>
-                      <p className="text-sm text-muted-foreground">Once inspected, we'll process your refund within 5–7 business days.</p>
+                      <p className="font-semibold text-foreground">Receive Your Refund</p>
+                      <p className="text-muted-foreground">Once inspected, we'll process your refund within 5–7 business days.</p>
                     </div>
                   </li>
                 </ol>
