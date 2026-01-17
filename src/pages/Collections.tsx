@@ -513,21 +513,14 @@ function ProductCard({ product }: { product: (typeof allProducts)[0] }) {
           />
         </Link>
 
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-          {product.badges.slice(0, 2).map((badge) => (
-            <span
-              key={badge}
-              className={`text-xs font-medium px-2 py-1 rounded-full ${
-                badge === "Sale"
-                  ? "bg-accent text-accent-foreground"
-                  : "bg-primary text-primary-foreground"
-              }`}
-            >
-              {badge}
+        {/* Sale Badge - Only show discount percentage */}
+        {product.comparePrice && (
+          <div className="absolute top-3 left-3">
+            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-accent text-accent-foreground shadow-sm">
+              -{Math.round((1 - product.price / product.comparePrice) * 100)}%
             </span>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Wishlist */}
         <button className="absolute top-3 right-3 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background">

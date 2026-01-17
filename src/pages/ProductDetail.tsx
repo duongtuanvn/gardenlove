@@ -324,22 +324,14 @@ export default function ProductDetail() {
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                {product.badges.map((badge) => (
-                  <span
-                    key={badge}
-                    className="text-sm font-medium px-3 py-1.5 rounded-full bg-primary text-primary-foreground"
-                  >
-                    {badge}
-                  </span>
-                ))}
-                {/* Sale badge with percentage */}
-                {product.comparePrice && (
-                  <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-accent text-accent-foreground">
+              {/* Sale Badge - Only show discount percentage */}
+              {product.comparePrice && (
+                <div className="absolute top-4 left-4">
+                  <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-accent text-accent-foreground shadow-sm">
                     -{Math.round((1 - product.price / product.comparePrice) * 100)}%
                   </span>
-                )}
-              </div>
+                </div>
+              )}
               <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors">
                 <Heart className="w-5 h-5 text-foreground" />
               </button>
