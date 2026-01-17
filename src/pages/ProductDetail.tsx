@@ -202,6 +202,63 @@ const productData: Record<string, {
       },
     ],
   },
+  "bougainvillea-live-flowering-vines": {
+    id: 3,
+    name: "2 Bougainvillea Plants Live Flowering Vines Drought Tolerant Tropical Climbers Full Sun Garden Trellis Patio Container Fast Growing Outdoor Plant",
+    slug: "bougainvillea-live-flowering-vines",
+    price: 33.99,
+    comparePrice: 44.99,
+    images: [categoryTrees, categoryHerbs, categoryIndoor, categorySucculents, categoryTrees, categoryHerbs],
+    badges: ["zone 9", "Fast Growing", "Drought Tolerant"],
+    rating: 5.0,
+    reviewCount: 0,
+    category: "Outdoor Plants",
+    inStock: true,
+    variants: [
+      { id: 1, name: "Barbara Karst Bougainvillea / 4 To 6 Inches Height Rooted", price: 33.99, inStock: true },
+      { id: 2, name: "Helen Bougainvillea / 4 To 6 Inches Height Rooted", price: 33.99, inStock: true },
+      { id: 3, name: "California Gold Bougainvillea / 4 To 6 Inches Height Rooted", price: 35.99, inStock: true },
+      { id: 4, name: "Sundown Orange Bougainvillea / 4 To 6 Inches Height Rooted", price: 35.99, inStock: true },
+      { id: 5, name: "Blueberry Ice Bougainvillea / 4 To 6 Inches Height Rooted", price: 37.99, inStock: true },
+      { id: 6, name: "New River Bougainvillea / 4 To 6 Inches Height Rooted", price: 33.99, inStock: false },
+      { id: 7, name: "San Diego Red Bougainvillea / 4 To 6 Inches Height Rooted", price: 34.99, inStock: true },
+      { id: 8, name: "Purple Queen Bougainvillea / 4 To 6 Inches Height Rooted", price: 36.99, inStock: true },
+    ],
+    description:
+      "Transform your garden into a tropical paradise with our stunning Bougainvillea collection! These drought-tolerant flowering vines are renowned for their spectacular cascades of vibrant, papery bracts that bloom profusely throughout the warm season. Perfect for trellises, arbors, fences, or containers, Bougainvillea brings explosive color to any sunny space. Originally from South America, these fast-growing climbers thrive in full sun and are remarkably low-maintenance once established. Each plant arrives healthy, rooted, and ready to bring years of breathtaking beauty to your outdoor living spaces.",
+    careGuide: {
+      usdaZone: "9-11",
+      sunlight: "Full sun (6+ hours direct sunlight)",
+      soilType: "Well-draining, slightly acidic soil",
+      planting: "Spring after last frost",
+    },
+    features: [
+      "Drought tolerant once established",
+      "Fast-growing climber (up to 30ft)",
+      "Blooms multiple times per year",
+      "Attracts butterflies and hummingbirds",
+      "Deer and rabbit resistant",
+      "Heat and salt tolerant",
+    ],
+    customerReviews: [],
+    faq: [
+      {
+        question: "How do I get my Bougainvillea to bloom more?",
+        answer:
+          "Bougainvillea blooms best when slightly stressed. Allow soil to dry between waterings, provide full sun (6+ hours), and use a low-nitrogen, high-phosphorus fertilizer. Slight root-binding in containers can also encourage blooming.",
+      },
+      {
+        question: "Can Bougainvillea survive frost?",
+        answer:
+          "Bougainvillea is frost-sensitive. In zones 9-11, they're typically hardy outdoors. In colder zones, grow in containers and bring indoors when temperatures drop below 40°F. Light frosts may cause leaf drop but established plants often recover.",
+      },
+      {
+        question: "How fast does Bougainvillea grow?",
+        answer:
+          "In optimal conditions (full sun, warm temperatures, well-draining soil), Bougainvillea can grow 3-5 feet per year. Some varieties can reach 30+ feet when given proper support for climbing.",
+      },
+    ],
+  },
 };
 
 const relatedProducts = [
