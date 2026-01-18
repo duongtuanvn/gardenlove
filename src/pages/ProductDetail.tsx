@@ -550,9 +550,9 @@ export default function ProductDetail() {
             {hasOptionGroups && product.optionGroups ? (
               <div className="w-full min-w-0 overflow-hidden space-y-6">
                 {product.optionGroups.map((group) => (
-                  <div key={group.name}>
+                  <div key={group.name} className="min-w-0">
                     <label className="text-sm font-medium text-foreground mb-3 block">{group.name}</label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
                       {group.values.map((value) => {
                         const isSelected = selectedOptions[group.name] === value;
                         // Check if this option combination is in stock
@@ -570,7 +570,7 @@ export default function ProductDetail() {
                             key={value}
                             onClick={() => setSelectedOptions(prev => ({ ...prev, [group.name]: value }))}
                             disabled={!isInStock}
-                            className={`px-4 py-2 rounded-full border-2 text-sm font-medium transition-all whitespace-normal break-words max-w-full ${
+                            className={`w-full sm:w-auto px-4 py-2.5 rounded-full border-2 text-sm font-medium transition-all text-left sm:text-center ${
                               isSelected
                                 ? "border-primary bg-primary/5 text-primary"
                                 : isInStock
