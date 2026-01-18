@@ -28,6 +28,7 @@ import {
   Shovel,
   Calendar,
   Zap,
+  Flame,
 } from "lucide-react";
 
 import categoryIndoor from "@/assets/category-indoor.jpg";
@@ -518,6 +519,25 @@ export default function ProductDetail() {
                 </div>
                 <span className="font-semibold">{product.rating}</span>
                 <span className="text-muted-foreground">({product.reviewCount} reviews)</span>
+              </div>
+
+              {/* Social Proof & Urgency */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm mt-3">
+                <div className="flex items-center gap-1.5 text-muted-foreground">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span><span className="font-medium text-foreground">7 people</span> viewing now</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-muted-foreground">
+                  <ShoppingCart className="w-3.5 h-3.5 text-primary" />
+                  <span><span className="font-medium text-foreground">2</span> added to cart</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-accent">
+                  <Flame className="w-3.5 h-3.5" />
+                  <span className="font-medium">Only 5 left in stock!</span>
+                </div>
               </div>
             </div>
 
