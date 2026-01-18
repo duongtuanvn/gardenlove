@@ -35,6 +35,20 @@ import categorySucculents from "@/assets/category-succulents.jpg";
 import categoryTrees from "@/assets/category-trees.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
 
+// Option groups type for multi-dimension variants
+interface OptionGroup {
+  name: string;
+  values: string[];
+}
+
+interface ProductVariant {
+  id: number;
+  options: Record<string, string>; // e.g., { variety: "Barbara Karst", size: "4-6 inches" }
+  price: number;
+  comparePrice?: number | null;
+  inStock: boolean;
+}
+
 // Mock product data
 const productData: Record<string, {
   id: number;
@@ -48,7 +62,8 @@ const productData: Record<string, {
   reviewCount: number;
   category: string;
   inStock: boolean;
-  variants: { id: number; name: string; price: number; comparePrice?: number | null; inStock: boolean }[];
+  optionGroups?: OptionGroup[];
+  variants: ProductVariant[] | { id: number; name: string; price: number; comparePrice?: number | null; inStock: boolean }[];
   description: string;
   careGuide: { usdaZone: string; sunlight: string; soilType: string; planting: string };
   features: string[];
@@ -214,15 +229,19 @@ const productData: Record<string, {
     reviewCount: 0,
     category: "Outdoor Plants",
     inStock: true,
+    optionGroups: [
+      { name: "Variety", values: ["Barbara Karst Bougainvillea", "Helen Bougainvillea", "California Gold Bougainvillea", "Sundown Orange Bougainvillea", "Blueberry Ice Bougainvillea", "New River Bougainvillea", "San Diego Red Bougainvillea", "Purple Queen Bougainvillea"] },
+      { name: "Size", values: ["4 To 6 Inches Height Rooted"] },
+    ],
     variants: [
-      { id: 1, name: "Barbara Karst Bougainvillea / 4 To 6 Inches Height Rooted", price: 33.99, inStock: true },
-      { id: 2, name: "Helen Bougainvillea / 4 To 6 Inches Height Rooted", price: 33.99, inStock: true },
-      { id: 3, name: "California Gold Bougainvillea / 4 To 6 Inches Height Rooted", price: 35.99, inStock: true },
-      { id: 4, name: "Sundown Orange Bougainvillea / 4 To 6 Inches Height Rooted", price: 35.99, inStock: true },
-      { id: 5, name: "Blueberry Ice Bougainvillea / 4 To 6 Inches Height Rooted", price: 37.99, inStock: true },
-      { id: 6, name: "New River Bougainvillea / 4 To 6 Inches Height Rooted", price: 33.99, inStock: false },
-      { id: 7, name: "San Diego Red Bougainvillea / 4 To 6 Inches Height Rooted", price: 34.99, inStock: true },
-      { id: 8, name: "Purple Queen Bougainvillea / 4 To 6 Inches Height Rooted", price: 36.99, inStock: true },
+      { id: 1, options: { Variety: "Barbara Karst Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 33.99, inStock: true },
+      { id: 2, options: { Variety: "Helen Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 33.99, inStock: true },
+      { id: 3, options: { Variety: "California Gold Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 35.99, inStock: true },
+      { id: 4, options: { Variety: "Sundown Orange Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 35.99, inStock: true },
+      { id: 5, options: { Variety: "Blueberry Ice Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 37.99, inStock: true },
+      { id: 6, options: { Variety: "New River Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 33.99, inStock: false },
+      { id: 7, options: { Variety: "San Diego Red Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 34.99, inStock: true },
+      { id: 8, options: { Variety: "Purple Queen Bougainvillea", Size: "4 To 6 Inches Height Rooted" }, price: 36.99, inStock: true },
     ],
     description:
       "Transform your garden into a tropical paradise with our stunning Bougainvillea collection! These drought-tolerant flowering vines are renowned for their spectacular cascades of vibrant, papery bracts that bloom profusely throughout the warm season. Perfect for trellises, arbors, fences, or containers, Bougainvillea brings explosive color to any sunny space. Originally from South America, these fast-growing climbers thrive in full sun and are remarkably low-maintenance once established. Each plant arrives healthy, rooted, and ready to bring years of breathtaking beauty to your outdoor living spaces.",
@@ -315,26 +334,67 @@ export default function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
 
   // Get product data based on slug, fallback to monstera for demo
   const product = (slug && productData[slug]) ? productData[slug] : productData["monstera-deliciosa"];
 
-  const currentVariant = product.variants[selectedVariant];
+  // Check if product has optionGroups (multi-dimension variants)
+  const hasOptionGroups = product.optionGroups && product.optionGroups.length > 0;
+
+  // Initialize selected options on first render
+  useState(() => {
+    if (hasOptionGroups && product.optionGroups) {
+      const initial: Record<string, string> = {};
+      product.optionGroups.forEach(group => {
+        initial[group.name] = group.values[0];
+      });
+      setSelectedOptions(initial);
+    }
+  });
+
+  // Find matching variant based on selected options
+  const findMatchingVariant = () => {
+    if (!hasOptionGroups) {
+      return product.variants[selectedVariant];
+    }
+    const match = product.variants.find(v => {
+      if ('options' in v) {
+        return Object.keys(selectedOptions).every(key => v.options[key] === selectedOptions[key]);
+      }
+      return false;
+    });
+    return match || product.variants[0];
+  };
+
+  const currentVariant = findMatchingVariant();
+
+  // Get variant display name
+  const getVariantName = () => {
+    if ('name' in currentVariant) {
+      return currentVariant.name;
+    }
+    if ('options' in currentVariant) {
+      return Object.values(currentVariant.options).join(' / ');
+    }
+    return '';
+  };
 
   const handleAddToCart = () => {
+    const variantName = getVariantName();
     addItem(
       {
         id: product.id,
         name: product.name,
         slug: product.slug,
-        variant: currentVariant.name,
+        variant: variantName,
         price: currentVariant.price,
         image: product.images[0],
       },
       quantity
     );
     toast.success(`${product.name} added to cart`, {
-      description: `${quantity} × ${currentVariant.name}`,
+      description: `${quantity} × ${variantName}`,
       action: {
         label: "View Cart",
         onClick: () => navigate("/cart"),
@@ -343,12 +403,13 @@ export default function ProductDetail() {
   };
 
   const handleBuyNow = () => {
+    const variantName = getVariantName();
     addItem(
       {
         id: product.id,
         name: product.name,
         slug: product.slug,
-        variant: currentVariant.name,
+        variant: variantName,
         price: currentVariant.price,
         image: product.images[0],
       },
@@ -485,35 +546,80 @@ export default function ProductDetail() {
               );
             })()}
 
-            {/* Variants */}
-            <div className="w-full min-w-0 overflow-hidden">
-              <label className="text-sm font-medium text-foreground mb-3 block">Select Option</label>
-              <div className="grid gap-2">
-                {product.variants.map((variant, index) => (
-                  <button
-                    key={variant.id}
-                    onClick={() => setSelectedVariant(index)}
-                    disabled={!variant.inStock}
-                    className={`w-full min-w-0 text-left rounded-lg border-2 px-3 py-2.5 whitespace-normal break-words ${
-                      selectedVariant === index
-                        ? "border-primary bg-primary/5 text-primary"
-                        : variant.inStock
-                        ? "border-border hover:border-primary/50 text-foreground"
-                        : "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
-                    }`}
-                  >
-                    <span className="block whitespace-normal break-words text-sm font-medium line-clamp-2">
-                      {variant.name}
-                    </span>
-                    {variant.price !== product.price && (
-                      <span className="block text-xs mt-0.5 text-muted-foreground">
-                        ${variant.price.toFixed(2)}
-                      </span>
-                    )}
-                  </button>
+            {/* Variants - Option Groups UI */}
+            {hasOptionGroups && product.optionGroups ? (
+              <div className="w-full min-w-0 overflow-hidden space-y-6">
+                {product.optionGroups.map((group) => (
+                  <div key={group.name}>
+                    <label className="text-sm font-medium text-foreground mb-3 block">{group.name}</label>
+                    <div className="flex flex-wrap gap-2">
+                      {group.values.map((value) => {
+                        const isSelected = selectedOptions[group.name] === value;
+                        // Check if this option combination is in stock
+                        const testOptions = { ...selectedOptions, [group.name]: value };
+                        const matchingVariant = product.variants.find(v => {
+                          if ('options' in v) {
+                            return Object.keys(testOptions).every(key => v.options[key] === testOptions[key]);
+                          }
+                          return false;
+                        });
+                        const isInStock = matchingVariant ? matchingVariant.inStock : true;
+
+                        return (
+                          <button
+                            key={value}
+                            onClick={() => setSelectedOptions(prev => ({ ...prev, [group.name]: value }))}
+                            disabled={!isInStock}
+                            className={`px-4 py-2 rounded-full border-2 text-sm font-medium transition-all whitespace-normal break-words max-w-full ${
+                              isSelected
+                                ? "border-primary bg-primary/5 text-primary"
+                                : isInStock
+                                ? "border-border hover:border-primary/50 text-foreground bg-background"
+                                : "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
+                            }`}
+                          >
+                            {value}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 ))}
               </div>
-            </div>
+            ) : (
+              /* Flat Variants - Single list */
+              <div className="w-full min-w-0 overflow-hidden">
+                <label className="text-sm font-medium text-foreground mb-3 block">Select Option</label>
+                <div className="grid gap-2">
+                  {product.variants.map((variant, index) => {
+                    const variantName = 'name' in variant ? variant.name : Object.values((variant as ProductVariant).options).join(' / ');
+                    return (
+                      <button
+                        key={variant.id}
+                        onClick={() => setSelectedVariant(index)}
+                        disabled={!variant.inStock}
+                        className={`w-full min-w-0 text-left rounded-lg border-2 px-3 py-2.5 whitespace-normal break-words ${
+                          selectedVariant === index
+                            ? "border-primary bg-primary/5 text-primary"
+                            : variant.inStock
+                            ? "border-border hover:border-primary/50 text-foreground"
+                            : "border-border bg-muted text-muted-foreground cursor-not-allowed line-through"
+                        }`}
+                      >
+                        <span className="block whitespace-normal break-words text-sm font-medium line-clamp-2">
+                          {variantName}
+                        </span>
+                        {variant.price !== product.price && (
+                          <span className="block text-xs mt-0.5 text-muted-foreground">
+                            ${variant.price.toFixed(2)}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Quantity & Add to Cart */}
             <div className="space-y-3">
