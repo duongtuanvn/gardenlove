@@ -500,7 +500,7 @@ export default function ProductDetail() {
           <div className="space-y-6 min-w-0 overflow-hidden">
             <div>
               <p className="text-sm text-primary font-medium mb-2">{product.category}</p>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground mb-3 leading-tight line-clamp-3">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground mb-3 leading-tight whitespace-normal break-words">
                 {product.name}
               </h1>
               <div className="flex items-center gap-3">
