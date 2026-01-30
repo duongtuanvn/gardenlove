@@ -1,0 +1,1027 @@
+/*
+Theme Name: Green Haven Nursery
+Theme URI: https://greenhaven-nursery.com
+Author: Green Haven Team
+Author URI: https://greenhaven-nursery.com
+Description: A nature-inspired WordPress theme for Green Haven Nursery. Features a biophilic design system with forest green, cream, and terracotta accents. WooCommerce ready with full e-commerce support.
+Version: 1.0.0
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: greenhaven
+Tags: one-column, two-columns, right-sidebar, custom-colors, custom-menu, custom-logo, featured-images, footer-widgets, full-width-template, theme-options, threaded-comments, translation-ready, e-commerce
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.0
+WooCommerce: 8.0+
+*/
+
+/* ============================================
+   CSS VARIABLES - Design System
+   Converted from: src/index.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Nature-inspired palette */
+    --gh-background: 45 30% 97%;
+    --gh-foreground: 150 30% 15%;
+
+    --gh-card: 45 25% 95%;
+    --gh-card-foreground: 150 30% 15%;
+
+    --gh-popover: 45 30% 97%;
+    --gh-popover-foreground: 150 30% 15%;
+
+    /* Deep forest green - primary brand */
+    --gh-primary: 150 35% 27%;
+    --gh-primary-foreground: 45 30% 97%;
+
+    /* Sage green - secondary */
+    --gh-secondary: 140 20% 42%;
+    --gh-secondary-foreground: 45 30% 97%;
+
+    /* Sand/cream - muted surfaces */
+    --gh-muted: 35 25% 85%;
+    --gh-muted-foreground: 150 15% 35%;
+
+    /* Terracotta - accent/CTA */
+    --gh-accent: 32 85% 44%;
+    --gh-accent-foreground: 45 30% 97%;
+
+    /* Earth brown */
+    --gh-earth: 30 30% 40%;
+    --gh-earth-foreground: 45 30% 97%;
+
+    --gh-destructive: 0 84% 60%;
+    --gh-destructive-foreground: 0 0% 100%;
+
+    --gh-border: 35 20% 82%;
+    --gh-input: 35 20% 82%;
+    --gh-ring: 150 35% 27%;
+
+    --gh-radius: 0.75rem;
+    --gh-radius-lg: 1rem;
+    --gh-radius-xl: 1.5rem;
+    --gh-radius-2xl: 2rem;
+
+    /* Shadows */
+    --gh-shadow-soft: 0 4px 20px -4px hsl(150 30% 15% / 0.1);
+    --gh-shadow-card: 0 8px 30px -8px hsl(150 30% 15% / 0.12);
+    --gh-shadow-elevated: 0 20px 50px -15px hsl(150 30% 15% / 0.2);
+
+    /* Gradients */
+    --gh-gradient-hero: linear-gradient(135deg, hsl(150 35% 20% / 0.85) 0%, hsl(150 30% 25% / 0.7) 100%);
+    --gh-gradient-cta: linear-gradient(135deg, hsl(32 85% 44%) 0%, hsl(25 80% 50%) 100%);
+    --gh-gradient-card: linear-gradient(180deg, hsl(45 30% 97%) 0%, hsl(35 25% 92%) 100%);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: hsl(var(--gh-background));
+    color: hsl(var(--gh-foreground));
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+
+.gh-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .gh-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gh-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.gh-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+    .gh-section {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gh-section {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+    }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.gh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: var(--gh-radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.625rem 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.gh-btn:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.gh-btn-primary {
+    background-color: hsl(var(--gh-primary));
+    color: hsl(var(--gh-primary-foreground));
+    box-shadow: var(--gh-shadow-soft);
+}
+
+.gh-btn-primary:hover {
+    background-color: hsl(var(--gh-primary) / 0.9);
+}
+
+.gh-btn-secondary {
+    background-color: hsl(var(--gh-secondary));
+    color: hsl(var(--gh-secondary-foreground));
+}
+
+.gh-btn-secondary:hover {
+    background-color: hsl(var(--gh-secondary) / 0.8);
+}
+
+.gh-btn-outline {
+    border: 2px solid hsl(var(--gh-primary));
+    background-color: transparent;
+    color: hsl(var(--gh-primary));
+}
+
+.gh-btn-outline:hover {
+    background-color: hsl(var(--gh-primary));
+    color: hsl(var(--gh-primary-foreground));
+}
+
+.gh-btn-ghost {
+    background-color: transparent;
+    color: hsl(var(--gh-foreground));
+}
+
+.gh-btn-ghost:hover {
+    background-color: hsl(var(--gh-muted));
+}
+
+.gh-btn-hero {
+    background: var(--gh-gradient-cta);
+    color: hsl(var(--gh-accent-foreground));
+    font-weight: 600;
+    border-radius: 9999px;
+    box-shadow: var(--gh-shadow-card);
+    padding: 0.875rem 2rem;
+}
+
+.gh-btn-hero:hover {
+    transform: scale(1.05);
+    box-shadow: var(--gh-shadow-elevated);
+}
+
+.gh-btn-hero-outline {
+    border: 2px solid hsl(var(--gh-primary-foreground) / 0.8);
+    background-color: transparent;
+    color: hsl(var(--gh-primary-foreground));
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 0.875rem 2rem;
+}
+
+.gh-btn-hero-outline:hover {
+    background-color: hsl(var(--gh-primary-foreground) / 0.1);
+}
+
+.gh-btn-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.gh-btn-lg {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+}
+
+.gh-btn-xl {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+}
+
+.gh-btn-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.gh-card {
+    background-color: hsl(var(--gh-card));
+    border-radius: var(--gh-radius-lg);
+    border: 1px solid hsl(var(--gh-border));
+    box-shadow: var(--gh-shadow-soft);
+    overflow: hidden;
+}
+
+.gh-card-gradient {
+    background: var(--gh-gradient-card);
+    box-shadow: var(--gh-shadow-card);
+}
+
+/* ============================================
+   CATEGORY CARDS
+   ============================================ */
+
+.gh-category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--gh-radius-lg);
+    aspect-ratio: 4/5;
+    cursor: pointer;
+    display: block;
+}
+
+.gh-category-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2) 50%, transparent);
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+.gh-category-card:hover::after {
+    opacity: 0.8;
+}
+
+.gh-category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    position: absolute;
+    inset: 0;
+}
+
+.gh-category-card:hover img {
+    transform: scale(1.1);
+}
+
+.gh-category-card__content {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
+.gh-category-card__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(var(--gh-primary-foreground));
+}
+
+.gh-category-card__count {
+    font-size: 0.875rem;
+    color: hsl(var(--gh-primary-foreground) / 0.8);
+}
+
+/* ============================================
+   PRODUCT CARDS
+   ============================================ */
+
+.gh-product-card {
+    background-color: hsl(var(--gh-card));
+    border-radius: var(--gh-radius-xl);
+    overflow: hidden;
+    box-shadow: var(--gh-shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.gh-product-card:hover {
+    box-shadow: var(--gh-shadow-card);
+}
+
+.gh-product-card__image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.gh-product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gh-product-card:hover .gh-product-card__image img {
+    transform: scale(1.05);
+}
+
+.gh-product-card__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--gh-accent));
+    color: hsl(var(--gh-accent-foreground));
+    box-shadow: var(--gh-shadow-soft);
+}
+
+.gh-product-card__wishlist {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--gh-background) / 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.gh-product-card:hover .gh-product-card__wishlist {
+    opacity: 1;
+}
+
+.gh-product-card__wishlist:hover {
+    background-color: hsl(var(--gh-background));
+}
+
+.gh-product-card__quick-add {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition: all 0.3s ease;
+}
+
+.gh-product-card:hover .gh-product-card__quick-add {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gh-product-card__info {
+    padding: 1rem;
+}
+
+.gh-product-card__category {
+    font-size: 0.75rem;
+    color: hsl(var(--gh-muted-foreground));
+    margin-bottom: 0.25rem;
+}
+
+.gh-product-card__title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: hsl(var(--gh-foreground));
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.gh-product-card__title:hover {
+    color: hsl(var(--gh-primary));
+}
+
+.gh-product-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.gh-product-card__rating svg {
+    width: 1rem;
+    height: 1rem;
+    fill: hsl(var(--gh-accent));
+    color: hsl(var(--gh-accent));
+}
+
+.gh-product-card__rating span {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.gh-product-card__rating-count {
+    font-size: 0.75rem;
+    color: hsl(var(--gh-muted-foreground));
+}
+
+.gh-product-card__price {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.gh-product-card__price-current {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: hsl(var(--gh-foreground));
+}
+
+.gh-product-card__price-compare {
+    font-size: 0.875rem;
+    color: hsl(var(--gh-muted-foreground));
+    text-decoration: line-through;
+}
+
+/* ============================================
+   TRUST BADGES
+   ============================================ */
+
+.gh-trust-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: var(--gh-radius-lg);
+    background-color: hsl(var(--gh-card));
+    box-shadow: var(--gh-shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.gh-trust-badge:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--gh-shadow-card);
+}
+
+.gh-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(var(--gh-foreground));
+}
+
+.gh-trust-item__icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--gh-primary) / 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gh-trust-item__icon svg {
+    width: 1rem;
+    height: 1rem;
+    color: hsl(var(--gh-primary));
+}
+
+/* ============================================
+   HERO OVERLAY
+   ============================================ */
+
+.gh-hero-overlay {
+    background: var(--gh-gradient-hero);
+}
+
+/* ============================================
+   SHIPPING STEP CARDS
+   ============================================ */
+
+.gh-step-card {
+    position: relative;
+    background-color: hsl(var(--gh-background));
+    border-radius: var(--gh-radius-xl);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--gh-shadow-soft);
+}
+
+.gh-step-card__number {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--gh-primary));
+    color: hsl(var(--gh-primary-foreground));
+    font-size: 0.875rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gh-step-card__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--gh-radius-lg);
+    background-color: hsl(var(--gh-primary) / 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem auto 1rem;
+}
+
+.gh-step-card__icon svg {
+    width: 2rem;
+    height: 2rem;
+    color: hsl(var(--gh-primary));
+}
+
+.gh-step-card__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(var(--gh-foreground));
+    margin-bottom: 0.5rem;
+}
+
+.gh-step-card__description {
+    font-size: 0.875rem;
+    color: hsl(var(--gh-muted-foreground));
+}
+
+/* ============================================
+   FAQ ACCORDION
+   ============================================ */
+
+.gh-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.gh-accordion-item {
+    border: 1px solid hsl(var(--gh-border));
+    border-radius: var(--gh-radius-lg);
+    padding: 0 1rem;
+    transition: background-color 0.3s;
+}
+
+.gh-accordion-item.is-open {
+    background-color: hsl(var(--gh-muted) / 0.3);
+}
+
+.gh-accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 500;
+    color: hsl(var(--gh-foreground));
+}
+
+.gh-accordion-trigger:hover {
+    color: hsl(var(--gh-primary));
+}
+
+.gh-accordion-trigger svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.gh-accordion-item.is-open .gh-accordion-trigger svg {
+    transform: rotate(180deg);
+}
+
+.gh-accordion-content {
+    display: none;
+    padding-bottom: 1rem;
+    color: hsl(var(--gh-muted-foreground));
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+.gh-accordion-item.is-open .gh-accordion-content {
+    display: block;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes gh-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gh-animate-fade-in-up {
+    animation: gh-fade-in-up 0.6s ease-out forwards;
+}
+
+.gh-delay-100 { animation-delay: 100ms; }
+.gh-delay-200 { animation-delay: 200ms; }
+.gh-delay-300 { animation-delay: 300ms; }
+.gh-delay-400 { animation-delay: 400ms; }
+
+@keyframes gh-ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.gh-animate-ping {
+    animation: gh-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.gh-text-gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--gh-primary)) 0%, hsl(var(--gh-secondary)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gh-bg-muted-30 {
+    background-color: hsl(var(--gh-muted) / 0.3);
+}
+
+.gh-bg-card {
+    background-color: hsl(var(--gh-card));
+}
+
+.gh-bg-primary {
+    background-color: hsl(var(--gh-primary));
+}
+
+.gh-text-primary-foreground {
+    color: hsl(var(--gh-primary-foreground));
+}
+
+.gh-text-muted-foreground {
+    color: hsl(var(--gh-muted-foreground));
+}
+
+.gh-text-accent {
+    color: hsl(var(--gh-accent));
+}
+
+.gh-border-border {
+    border-color: hsl(var(--gh-border));
+}
+
+/* ============================================
+   RESPONSIVE GRID UTILITIES
+   ============================================ */
+
+.gh-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .gh-grid {
+        gap: 1.5rem;
+    }
+}
+
+.gh-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.gh-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+    .gh-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.gh-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 1024px) {
+    .gh-grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.gh-grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+    .gh-grid-6 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .gh-grid-6 {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* ============================================
+   FLEXBOX UTILITIES
+   ============================================ */
+
+.gh-flex {
+    display: flex;
+}
+
+.gh-flex-col {
+    flex-direction: column;
+}
+
+.gh-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gh-items-center {
+    align-items: center;
+}
+
+.gh-items-end {
+    align-items: flex-end;
+}
+
+.gh-justify-center {
+    justify-content: center;
+}
+
+.gh-justify-between {
+    justify-content: space-between;
+}
+
+.gh-gap-2 {
+    gap: 0.5rem;
+}
+
+.gh-gap-3 {
+    gap: 0.75rem;
+}
+
+.gh-gap-4 {
+    gap: 1rem;
+}
+
+.gh-gap-6 {
+    gap: 1.5rem;
+}
+
+.gh-gap-8 {
+    gap: 2rem;
+}
+
+/* ============================================
+   TEXT UTILITIES
+   ============================================ */
+
+.gh-text-center {
+    text-align: center;
+}
+
+.gh-text-left {
+    text-align: left;
+}
+
+.gh-text-xs {
+    font-size: 0.75rem;
+}
+
+.gh-text-sm {
+    font-size: 0.875rem;
+}
+
+.gh-text-base {
+    font-size: 1rem;
+}
+
+.gh-text-lg {
+    font-size: 1.125rem;
+}
+
+.gh-text-xl {
+    font-size: 1.25rem;
+}
+
+.gh-text-2xl {
+    font-size: 1.5rem;
+}
+
+.gh-text-3xl {
+    font-size: 1.875rem;
+}
+
+.gh-text-4xl {
+    font-size: 2.25rem;
+}
+
+.gh-font-medium {
+    font-weight: 500;
+}
+
+.gh-font-semibold {
+    font-weight: 600;
+}
+
+.gh-font-bold {
+    font-weight: 700;
+}
+
+.gh-line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.gh-line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ============================================
+   SPACING UTILITIES
+   ============================================ */
+
+.gh-mb-2 { margin-bottom: 0.5rem; }
+.gh-mb-4 { margin-bottom: 1rem; }
+.gh-mb-6 { margin-bottom: 1.5rem; }
+.gh-mb-8 { margin-bottom: 2rem; }
+.gh-mb-10 { margin-bottom: 2.5rem; }
+.gh-mb-12 { margin-bottom: 3rem; }
+
+.gh-mt-2 { margin-top: 0.5rem; }
+.gh-mt-4 { margin-top: 1rem; }
+.gh-mt-6 { margin-top: 1.5rem; }
+.gh-mt-8 { margin-top: 2rem; }
+
+.gh-p-4 { padding: 1rem; }
+.gh-p-6 { padding: 1.5rem; }
+.gh-p-8 { padding: 2rem; }
+
+.gh-py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.gh-py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.gh-py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.gh-py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.gh-py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+
+/* ============================================
+   VISIBILITY
+   ============================================ */
+
+.gh-hidden {
+    display: none !important;
+}
+
+@media (min-width: 640px) {
+    .sm\:gh-flex {
+        display: flex !important;
+    }
+    .sm\:gh-hidden {
+        display: none !important;
+    }
+    .sm\:gh-block {
+        display: block !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .md\:gh-flex {
+        display: flex !important;
+    }
+    .md\:gh-hidden {
+        display: none !important;
+    }
+    .md\:gh-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .md\:gh-flex-row {
+        flex-direction: row;
+    }
+    .md\:gh-text-left {
+        text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\:gh-flex {
+        display: flex !important;
+    }
+    .lg\:gh-hidden {
+        display: none !important;
+    }
+    .lg\:gh-h-20 {
+        height: 5rem;
+    }
+}
+
+/* ============================================
+   SCREEN READER ONLY
+   ============================================ */
+
+.gh-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
