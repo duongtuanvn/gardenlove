@@ -176,6 +176,13 @@ function gh_product_schema() {
     
     global $product;
     
+    // Ensure $product is a valid WC_Product object
+    if (!$product || !is_a($product, 'WC_Product')) {
+        $product = wc_get_product(get_the_ID());
+    }
+    
+    if (!$product) return;
+    
     $schema = array(
         '@context'    => 'https://schema.org/',
         '@type'       => 'Product',
