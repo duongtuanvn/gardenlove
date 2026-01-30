@@ -1866,6 +1866,1133 @@ mkdir wp-content/themes/greenhaven-theme
 
 ---
 
+## 📜 Policy Page Templates
+
+All policy pages share a consistent hero section design with decorative backgrounds and structured content layout.
+
+### page-privacy-policy.php
+
+```php
+<?php
+/**
+ * Template Name: Privacy Policy
+ * Converted from: src/pages/PrivacyPolicy.tsx
+ */
+
+get_header();
+?>
+
+<main id="main" class="site-main">
+    <!-- Hero Section -->
+    <section class="gh-policy-hero">
+        <div class="gh-policy-hero__bg"></div>
+        <div class="gh-container gh-relative gh-z-10">
+            <div class="gh-max-w-3xl gh-mx-auto gh-text-center">
+                <div class="gh-inline-flex gh-items-center gh-gap-2 gh-bg-primary-10 gh-text-primary gh-px-4 gh-py-2 gh-rounded-full gh-mb-6">
+                    <?php echo gh_get_icon('shield', 'w-4 h-4'); ?>
+                    <span class="gh-text-sm gh-font-medium"><?php esc_html_e('Your Data is Protected', 'greenhaven'); ?></span>
+                </div>
+                <h1 class="gh-text-4xl md:gh-text-5xl gh-font-display gh-font-bold gh-text-foreground gh-mb-6">
+                    <?php the_title(); ?>
+                </h1>
+                <p class="gh-text-lg gh-text-muted-foreground">
+                    <?php esc_html_e('How we collect, use, and protect your personal information.', 'greenhaven'); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="gh-py-8 md:gh-py-12">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto gh-prose">
+                
+                <!-- Effective Date Box -->
+                <div class="gh-bg-primary-5 gh-border gh-border-primary-20 gh-rounded-xl gh-p-6 gh-mb-8">
+                    <p class="gh-text-sm gh-text-muted-foreground">
+                        <strong class="gh-text-foreground"><?php esc_html_e('Effective Date:', 'greenhaven'); ?></strong> <?php echo esc_html(get_theme_mod('gh_privacy_effective_date', 'January 1, 2025')); ?><br>
+                        <strong class="gh-text-foreground"><?php esc_html_e('Last Updated:', 'greenhaven'); ?></strong> <?php echo get_the_modified_date(); ?>
+                    </p>
+                </div>
+
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('Green Haven Nursery LLC ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('1. Information We Collect', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-4"><?php esc_html_e('We collect information you provide directly to us, including:', 'greenhaven'); ?></p>
+                <ul class="gh-list">
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Contact Information:', 'greenhaven'); ?></strong> <?php esc_html_e('Name, email address, phone number, shipping and billing address', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Payment Information:', 'greenhaven'); ?></strong> <?php esc_html_e('Credit card details, billing address (processed securely by our payment provider)', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Account Information:', 'greenhaven'); ?></strong> <?php esc_html_e('Username, password, order history', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Communications:', 'greenhaven'); ?></strong> <?php esc_html_e('Emails, customer service inquiries, reviews', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('2. How We Use Your Information', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-4"><?php esc_html_e('We use the information we collect to:', 'greenhaven'); ?></p>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('Process and fulfill your orders', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Send order confirmations, shipping updates, and tracking information', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Respond to customer service inquiries', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Send marketing emails (with your consent)', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Improve our website and customer experience', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Prevent fraud and protect our business', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Comply with legal obligations', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('3. Cookies and Analytics', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-4"><?php esc_html_e('We use cookies and similar tracking technologies to:', 'greenhaven'); ?></p>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('Remember your preferences and shopping cart', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Analyze website traffic (Google Analytics)', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Deliver targeted advertising (Meta Pixel, Google Ads)', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Improve website functionality', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('4. Information Sharing', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-4"><?php esc_html_e('We may share your information with:', 'greenhaven'); ?></p>
+                <ul class="gh-list">
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Payment Processors:', 'greenhaven'); ?></strong> <?php esc_html_e('To process transactions securely (e.g., Stripe, PayPal)', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Shipping Carriers:', 'greenhaven'); ?></strong> <?php esc_html_e('To deliver your orders (USPS, UPS, FedEx)', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Email Service Providers:', 'greenhaven'); ?></strong> <?php esc_html_e('To send transactional and marketing emails', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Analytics Providers:', 'greenhaven'); ?></strong> <?php esc_html_e('To analyze website usage', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Legal Authorities:', 'greenhaven'); ?></strong> <?php esc_html_e('When required by law or to protect our rights', 'greenhaven'); ?></li>
+                </ul>
+                <p class="gh-text-muted-foreground gh-mt-4"><?php esc_html_e('We do not sell your personal information to third parties.', 'greenhaven'); ?></p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('5. Data Retention', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('We retain your personal information for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements. Order information is typically retained for 7 years for tax and legal purposes.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('6. Your Rights and Choices', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-4"><?php esc_html_e('You have the right to:', 'greenhaven'); ?></p>
+                <ul class="gh-list">
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Access:', 'greenhaven'); ?></strong> <?php esc_html_e('Request a copy of your personal information', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Correct:', 'greenhaven'); ?></strong> <?php esc_html_e('Update inaccurate information', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Delete:', 'greenhaven'); ?></strong> <?php esc_html_e('Request deletion of your data (subject to legal requirements)', 'greenhaven'); ?></li>
+                    <li><strong class="gh-text-foreground"><?php esc_html_e('Opt-out:', 'greenhaven'); ?></strong> <?php esc_html_e('Unsubscribe from marketing emails at any time', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('7. Data Security', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. All payment information is encrypted using SSL technology and processed by PCI-compliant payment processors.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('8. Children\'s Privacy', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('Our website is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child under 13, please contact us immediately.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('9. Changes to This Policy', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy on this page and updating the "Last Updated" date.', 'greenhaven'); ?>
+                </p>
+
+                <!-- Contact Box -->
+                <?php get_template_part('template-parts/components/policy', 'contact', array(
+                    'title' => __('Contact Us', 'greenhaven'),
+                    'description' => __('For privacy-related questions or to exercise your rights:', 'greenhaven'),
+                    'email' => 'privacy@greenhaven-nursery.com'
+                )); ?>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<?php get_footer(); ?>
+```
+
+### page-terms-of-service.php
+
+```php
+<?php
+/**
+ * Template Name: Terms of Service
+ * Converted from: src/pages/TermsOfService.tsx
+ */
+
+get_header();
+?>
+
+<main id="main" class="site-main">
+    <!-- Hero Section -->
+    <section class="gh-policy-hero">
+        <div class="gh-policy-hero__bg"></div>
+        <div class="gh-container gh-relative gh-z-10">
+            <div class="gh-max-w-3xl gh-mx-auto gh-text-center">
+                <div class="gh-inline-flex gh-items-center gh-gap-2 gh-bg-primary-10 gh-text-primary gh-px-4 gh-py-2 gh-rounded-full gh-mb-6">
+                    <?php echo gh_get_icon('file-text', 'w-4 h-4'); ?>
+                    <span class="gh-text-sm gh-font-medium"><?php esc_html_e('Legal Terms', 'greenhaven'); ?></span>
+                </div>
+                <h1 class="gh-text-4xl md:gh-text-5xl gh-font-display gh-font-bold gh-text-foreground gh-mb-6">
+                    <?php the_title(); ?>
+                </h1>
+                <p class="gh-text-lg gh-text-muted-foreground">
+                    <?php esc_html_e('Please read these terms carefully before using our website or making a purchase.', 'greenhaven'); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="gh-py-8 md:gh-py-12">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto gh-prose">
+                
+                <div class="gh-bg-primary-5 gh-border gh-border-primary-20 gh-rounded-xl gh-p-6 gh-mb-8">
+                    <p class="gh-text-sm gh-text-muted-foreground">
+                        <strong class="gh-text-foreground"><?php esc_html_e('Effective Date:', 'greenhaven'); ?></strong> January 1, 2025<br>
+                        <strong class="gh-text-foreground"><?php esc_html_e('Last Updated:', 'greenhaven'); ?></strong> <?php echo get_the_modified_date(); ?>
+                    </p>
+                </div>
+
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('Welcome to Green Haven Nursery. These Terms of Service ("Terms") govern your use of our website and purchases. By accessing our website or placing an order, you agree to be bound by these Terms.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('1. General Terms', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('Green Haven Nursery LLC ("we," "us," "our") operates this website. By using our website, you represent that you are at least 18 years old or have parental consent, and that you have the legal capacity to enter into these Terms.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('2. Products and Availability', 'greenhaven'); ?></h2>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('All products are subject to availability. We reserve the right to limit quantities.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Product images are for illustration purposes. Live plants may vary in size, shape, and color due to natural variation and seasonal factors.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('We make every effort to display accurate colors, but monitor settings may affect how colors appear.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('We reserve the right to discontinue any product at any time without notice.', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('3. Pricing and Taxes', 'greenhaven'); ?></h2>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('All prices are listed in US Dollars (USD).', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Prices are subject to change without notice.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Sales tax will be applied where required by law and calculated at checkout.', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('4. Orders and Payment', 'greenhaven'); ?></h2>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('By placing an order, you are making an offer to purchase. We reserve the right to accept or decline any order.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('We accept major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Shop Pay.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Payment is processed at the time of order.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('You can cancel or modify your order within 2 hours of placing it by contacting us.', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('5. Shipping and Delivery', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-2">
+                    <?php printf(
+                        esc_html__('Please review our %s page for complete details.', 'greenhaven'),
+                        '<a href="' . esc_url(home_url('/shipping')) . '" class="gh-text-primary hover:gh-underline">' . esc_html__('Shipping Information', 'greenhaven') . '</a>'
+                    ); ?>
+                </p>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('We ship to the contiguous 48 United States only.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Risk of loss passes to you upon delivery to the carrier.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('We are not responsible for delays caused by carriers, weather, or customs.', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('6. Returns, Refunds, and Guarantee', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-mb-2">
+                    <?php printf(
+                        esc_html__('Please review our %s and %s pages for complete details.', 'greenhaven'),
+                        '<a href="' . esc_url(home_url('/returns')) . '" class="gh-text-primary hover:gh-underline">' . esc_html__('Returns & Refunds', 'greenhaven') . '</a>',
+                        '<a href="' . esc_url(home_url('/guarantee')) . '" class="gh-text-primary hover:gh-underline">' . esc_html__('Live Arrival Guarantee', 'greenhaven') . '</a>'
+                    ); ?>
+                </p>
+
+                <!-- Product Disclaimer Box -->
+                <div class="gh-bg-accent-10 gh-border gh-border-accent-20 gh-rounded-lg gh-p-4 gh-my-4">
+                    <p class="gh-text-sm gh-text-muted-foreground">
+                        <strong class="gh-text-foreground"><?php esc_html_e('Live Plant Variation:', 'greenhaven'); ?></strong> 
+                        <?php esc_html_e('Live plants are natural products. Size, shape, color, and bloom stage may vary from photos due to seasonality, growing conditions, and natural variation. This is not considered a defect.', 'greenhaven'); ?>
+                    </p>
+                </div>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('7. Intellectual Property', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('All content on this website—including text, images, logos, and graphics—is owned by Green Haven Nursery LLC and protected by copyright and trademark laws. You may not copy, reproduce, distribute, or create derivative works without our written permission.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('8. Limitation of Liability', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground gh-uppercase gh-text-sm">
+                    <?php esc_html_e('TO THE FULLEST EXTENT PERMITTED BY LAW, GREEN HAVEN NURSERY LLC SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM YOUR USE OF THE WEBSITE OR PRODUCTS.', 'greenhaven'); ?>
+                </p>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('9. Dispute Resolution', 'greenhaven'); ?></h2>
+                <ul class="gh-list">
+                    <li><?php esc_html_e('These Terms are governed by the laws of the State of Oregon.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('Any disputes shall be resolved through binding arbitration in Portland, Oregon.', 'greenhaven'); ?></li>
+                    <li><?php esc_html_e('You waive any right to participate in class action lawsuits.', 'greenhaven'); ?></li>
+                </ul>
+
+                <h2 class="gh-section-heading"><?php esc_html_e('10. Changes to Terms', 'greenhaven'); ?></h2>
+                <p class="gh-text-muted-foreground">
+                    <?php esc_html_e('We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting. Your continued use of the website after changes constitutes acceptance.', 'greenhaven'); ?>
+                </p>
+
+                <!-- Contact Box -->
+                <?php get_template_part('template-parts/components/policy', 'contact', array(
+                    'title' => __('Contact Us', 'greenhaven'),
+                    'description' => __('Questions about these Terms? Contact us:', 'greenhaven'),
+                    'email' => 'support@greenhaven-nursery.com'
+                )); ?>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<?php get_footer(); ?>
+```
+
+### page-returns-refunds.php
+
+```php
+<?php
+/**
+ * Template Name: Returns & Refunds
+ * Converted from: src/pages/ReturnsRefunds.tsx
+ */
+
+get_header();
+?>
+
+<main id="main" class="site-main">
+    <!-- Hero Section -->
+    <section class="gh-policy-hero">
+        <div class="gh-policy-hero__bg"></div>
+        <div class="gh-container gh-relative gh-z-10">
+            <div class="gh-max-w-3xl gh-mx-auto gh-text-center">
+                <div class="gh-inline-flex gh-items-center gh-gap-2 gh-bg-primary-10 gh-text-primary gh-px-4 gh-py-2 gh-rounded-full gh-mb-6">
+                    <?php echo gh_get_icon('rotate-ccw', 'w-4 h-4'); ?>
+                    <span class="gh-text-sm gh-font-medium"><?php esc_html_e('Easy Returns', 'greenhaven'); ?></span>
+                </div>
+                <h1 class="gh-text-4xl md:gh-text-5xl gh-font-display gh-font-bold gh-text-foreground gh-mb-6">
+                    <?php the_title(); ?>
+                </h1>
+                <p class="gh-text-lg gh-text-muted-foreground">
+                    <?php esc_html_e('Our policies for returns, refunds, and exchanges. We want you to be completely satisfied.', 'greenhaven'); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary Box -->
+    <section class="gh-py-8">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto">
+                <div class="gh-bg-primary-5 gh-border gh-border-primary-20 gh-rounded-xl gh-p-6">
+                    <h2 class="gh-text-lg gh-font-semibold gh-text-primary gh-mb-4 gh-flex gh-items-center gh-gap-2">
+                        <?php echo gh_get_icon('check-circle', 'w-5 h-5'); ?>
+                        <?php esc_html_e('Return & Refund Summary', 'greenhaven'); ?>
+                    </h2>
+                    <div class="gh-grid sm:gh-grid-cols-2 gh-gap-4 gh-text-sm">
+                        <div>
+                            <p class="gh-font-medium gh-text-foreground gh-mb-1"><?php esc_html_e('Non-Live Items (pots, tools, accessories):', 'greenhaven'); ?></p>
+                            <ul class="gh-text-muted-foreground gh-space-y-1">
+                                <li>• <?php esc_html_e('Return window: 30 days', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Condition: Unused, original packaging', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Return shipping: Customer pays', 'greenhaven'); ?></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="gh-font-medium gh-text-foreground gh-mb-1"><?php esc_html_e('Live Plants:', 'greenhaven'); ?></p>
+                            <ul class="gh-text-muted-foreground gh-space-y-1">
+                                <li>• <?php printf(esc_html__('See %s', 'greenhaven'), '<a href="' . esc_url(home_url('/guarantee')) . '" class="gh-text-primary hover:gh-underline">' . esc_html__('Live Arrival Guarantee', 'greenhaven') . '</a>'); ?></li>
+                                <li>• <?php esc_html_e('Claim window: 48 hours from delivery', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Resolution: Replacement or refund', 'greenhaven'); ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="gh-mt-4 gh-pt-4 gh-border-t gh-border-primary-10 gh-grid sm:gh-grid-cols-2 gh-gap-4 gh-text-sm">
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Refund Method:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('Original payment method', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Processing Time:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('5–7 business days', 'greenhaven'); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="gh-py-8 md:gh-py-12">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto gh-space-y-10">
+                
+                <!-- Eligibility -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4 gh-flex gh-items-center gh-gap-2">
+                        <?php echo gh_get_icon('check-circle', 'w-5 h-5'); ?>
+                        <?php esc_html_e('Return Eligibility', 'greenhaven'); ?>
+                    </h2>
+                    <div class="gh-grid md:gh-grid-cols-2 gh-gap-6">
+                        <div class="gh-bg-card gh-rounded-xl gh-p-5 gh-border gh-border-primary-20">
+                            <h3 class="gh-font-semibold gh-text-primary gh-mb-3 gh-flex gh-items-center gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4'); ?>
+                                <?php esc_html_e('Eligible for Return', 'greenhaven'); ?>
+                            </h3>
+                            <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                                <li>• <?php esc_html_e('Pots, planters, and containers', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Gardening tools and accessories', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Unused fertilizers and soil (sealed)', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Gift cards (refund to store credit only)', 'greenhaven'); ?></li>
+                            </ul>
+                        </div>
+                        <div class="gh-bg-card gh-rounded-xl gh-p-5 gh-border gh-border-destructive-20">
+                            <h3 class="gh-font-semibold gh-text-destructive gh-mb-3 gh-flex gh-items-center gh-gap-2">
+                                <?php echo gh_get_icon('x-circle', 'w-4 h-4'); ?>
+                                <?php esc_html_e('Not Eligible for Return', 'greenhaven'); ?>
+                            </h3>
+                            <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                                <li>• <?php esc_html_e('Live plants (see Live Arrival Guarantee)', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Bulbs and seeds', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Opened fertilizers or soil', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Items marked "Final Sale"', 'greenhaven'); ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to Start a Return -->
+                <div class="gh-bg-card gh-border gh-rounded-xl gh-p-6 md:gh-p-8">
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-6"><?php esc_html_e('How to Start a Return', 'greenhaven'); ?></h2>
+                    <ol class="gh-space-y-5">
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">1</span>
+                            <div>
+                                <p class="gh-font-semibold gh-text-foreground"><?php esc_html_e('Email Us', 'greenhaven'); ?></p>
+                                <p class="gh-text-muted-foreground"><?php esc_html_e('Send an email to', 'greenhaven'); ?> <a href="mailto:support@greenhaven-nursery.com" class="gh-text-primary hover:gh-underline gh-font-medium">support@greenhaven-nursery.com</a> <?php esc_html_e('with your order number and reason for return.', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">2</span>
+                            <div>
+                                <p class="gh-font-semibold gh-text-foreground"><?php esc_html_e('Receive Instructions', 'greenhaven'); ?></p>
+                                <p class="gh-text-muted-foreground"><?php esc_html_e('We\'ll reply within 1 business day with return authorization and shipping instructions.', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">3</span>
+                            <div>
+                                <p class="gh-font-semibold gh-text-foreground"><?php esc_html_e('Ship Your Return', 'greenhaven'); ?></p>
+                                <p class="gh-text-muted-foreground"><?php esc_html_e('Pack the item securely and ship to the address provided. Keep your tracking number!', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">4</span>
+                            <div>
+                                <p class="gh-font-semibold gh-text-foreground"><?php esc_html_e('Receive Your Refund', 'greenhaven'); ?></p>
+                                <p class="gh-text-muted-foreground"><?php esc_html_e('Once inspected, we\'ll process your refund within 5–7 business days.', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Contact Box -->
+                <?php get_template_part('template-parts/components/policy', 'contact', array(
+                    'title' => __('Need Help?', 'greenhaven'),
+                    'description' => __('Our customer support team is here to assist with returns and refunds.', 'greenhaven'),
+                    'email' => 'support@greenhaven-nursery.com',
+                    'phone' => '(555) 123-4567'
+                )); ?>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<?php get_footer(); ?>
+```
+
+### page-shipping-info.php
+
+```php
+<?php
+/**
+ * Template Name: Shipping Information
+ * Converted from: src/pages/ShippingInfo.tsx
+ */
+
+get_header();
+
+$shipping_zones = array(
+    array('zone' => 'Zone 1', 'states' => 'West Coast (CA, OR, WA)', 'time' => '2-3 business days'),
+    array('zone' => 'Zone 2', 'states' => 'Mountain West (AZ, NV, UT, CO, NM)', 'time' => '3-4 business days'),
+    array('zone' => 'Zone 3', 'states' => 'Midwest (TX, OK, KS, NE, IA, MN, etc.)', 'time' => '4-5 business days'),
+    array('zone' => 'Zone 4', 'states' => 'Southeast & Northeast', 'time' => '5-7 business days'),
+);
+?>
+
+<main id="main" class="site-main">
+    <!-- Hero Section -->
+    <section class="gh-policy-hero">
+        <div class="gh-policy-hero__bg"></div>
+        <div class="gh-container gh-relative gh-z-10">
+            <div class="gh-max-w-3xl gh-mx-auto gh-text-center">
+                <div class="gh-inline-flex gh-items-center gh-gap-2 gh-bg-primary-10 gh-text-primary gh-px-4 gh-py-2 gh-rounded-full gh-mb-6">
+                    <?php echo gh_get_icon('truck', 'w-4 h-4'); ?>
+                    <span class="gh-text-sm gh-font-medium"><?php esc_html_e('Fast & Safe Delivery', 'greenhaven'); ?></span>
+                </div>
+                <h1 class="gh-text-4xl md:gh-text-5xl gh-font-display gh-font-bold gh-text-foreground gh-mb-6">
+                    <?php the_title(); ?>
+                </h1>
+                <p class="gh-text-lg gh-text-muted-foreground">
+                    <?php esc_html_e('Everything you need to know about how we ship live plants safely to your door.', 'greenhaven'); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary Box -->
+    <section class="gh-py-8">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto">
+                <div class="gh-bg-primary-5 gh-border gh-border-primary-20 gh-rounded-xl gh-p-6">
+                    <h2 class="gh-text-lg gh-font-semibold gh-text-primary gh-mb-4 gh-flex gh-items-center gh-gap-2">
+                        <?php echo gh_get_icon('check-circle', 'w-5 h-5'); ?>
+                        <?php esc_html_e('Shipping Summary', 'greenhaven'); ?>
+                    </h2>
+                    <div class="gh-grid sm:gh-grid-cols-2 gh-gap-4 gh-text-sm">
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Processing Time:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('1–2 business days', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Cut-off Time:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('12:00 PM PST', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Carriers:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('USPS, UPS, FedEx', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Ship Days:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('Mon–Wed only', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Free Shipping:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium gh-text-primary"><?php esc_html_e('Orders over $150', 'greenhaven'); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="gh-py-8 md:gh-py-12">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto gh-space-y-10">
+                
+                <!-- Shipping Rates -->
+                <div>
+                    <div class="gh-flex gh-items-center gh-gap-3 gh-mb-4">
+                        <div class="gh-w-10 gh-h-10 gh-bg-primary-10 gh-rounded-lg gh-flex gh-items-center gh-justify-center">
+                            <?php echo gh_get_icon('package', 'w-5 h-5 text-primary'); ?>
+                        </div>
+                        <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary"><?php esc_html_e('Shipping Methods & Rates', 'greenhaven'); ?></h2>
+                    </div>
+                    <div class="gh-bg-card gh-rounded-xl gh-p-6 gh-border">
+                        <div class="gh-grid sm:gh-grid-cols-2 gh-gap-6">
+                            <div>
+                                <h3 class="gh-font-semibold gh-text-foreground gh-mb-3"><?php esc_html_e('Standard Shipping', 'greenhaven'); ?></h3>
+                                <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                                    <li class="gh-flex gh-justify-between">
+                                        <span><?php esc_html_e('Orders under $75:', 'greenhaven'); ?></span>
+                                        <span class="gh-font-medium gh-text-foreground">$9.99</span>
+                                    </li>
+                                    <li class="gh-flex gh-justify-between">
+                                        <span><?php esc_html_e('Orders $75–$149:', 'greenhaven'); ?></span>
+                                        <span class="gh-font-medium gh-text-foreground">$12.99</span>
+                                    </li>
+                                    <li class="gh-flex gh-justify-between">
+                                        <span><?php esc_html_e('Orders $150+:', 'greenhaven'); ?></span>
+                                        <span class="gh-font-medium gh-text-primary"><?php esc_html_e('FREE', 'greenhaven'); ?></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="gh-font-semibold gh-text-foreground gh-mb-3"><?php esc_html_e('Expedited Shipping', 'greenhaven'); ?></h3>
+                                <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                                    <li class="gh-flex gh-justify-between">
+                                        <span><?php esc_html_e('2-Day Express:', 'greenhaven'); ?></span>
+                                        <span class="gh-font-medium gh-text-foreground"><?php esc_html_e('From $24.99', 'greenhaven'); ?></span>
+                                    </li>
+                                    <li class="gh-flex gh-justify-between">
+                                        <span><?php esc_html_e('Overnight:', 'greenhaven'); ?></span>
+                                        <span class="gh-font-medium gh-text-foreground"><?php esc_html_e('From $39.99', 'greenhaven'); ?></span>
+                                    </li>
+                                </ul>
+                                <p class="gh-text-xs gh-text-muted-foreground gh-mt-2">*<?php esc_html_e('Rates vary by location and weight', 'greenhaven'); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Estimates Table -->
+                <div>
+                    <div class="gh-flex gh-items-center gh-gap-3 gh-mb-4">
+                        <div class="gh-w-10 gh-h-10 gh-bg-primary-10 gh-rounded-lg gh-flex gh-items-center gh-justify-center">
+                            <?php echo gh_get_icon('map-pin', 'w-5 h-5 text-primary'); ?>
+                        </div>
+                        <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary"><?php esc_html_e('Delivery Estimates', 'greenhaven'); ?></h2>
+                    </div>
+                    <p class="gh-text-muted-foreground gh-mb-4"><?php esc_html_e('We ship from our facilities in Oregon and Florida to optimize delivery times nationwide.', 'greenhaven'); ?></p>
+                    <div class="gh-overflow-x-auto">
+                        <table class="gh-w-full gh-bg-card gh-rounded-xl gh-border">
+                            <thead>
+                                <tr class="gh-border-b">
+                                    <th class="gh-text-left gh-py-3 gh-px-4 gh-text-sm gh-font-semibold gh-text-foreground"><?php esc_html_e('Zone', 'greenhaven'); ?></th>
+                                    <th class="gh-text-left gh-py-3 gh-px-4 gh-text-sm gh-font-semibold gh-text-foreground"><?php esc_html_e('States', 'greenhaven'); ?></th>
+                                    <th class="gh-text-left gh-py-3 gh-px-4 gh-text-sm gh-font-semibold gh-text-foreground"><?php esc_html_e('Transit Time', 'greenhaven'); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($shipping_zones as $zone) : ?>
+                                <tr class="gh-border-b last:gh-border-0">
+                                    <td class="gh-py-3 gh-px-4 gh-text-sm gh-font-medium gh-text-primary"><?php echo esc_html($zone['zone']); ?></td>
+                                    <td class="gh-py-3 gh-px-4 gh-text-sm gh-text-muted-foreground"><?php echo esc_html($zone['states']); ?></td>
+                                    <td class="gh-py-3 gh-px-4 gh-text-sm gh-text-muted-foreground"><?php echo esc_html($zone['time']); ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Weather-Smart Shipping -->
+                <div>
+                    <div class="gh-flex gh-items-center gh-gap-3 gh-mb-4">
+                        <div class="gh-w-10 gh-h-10 gh-bg-accent-20 gh-rounded-lg gh-flex gh-items-center gh-justify-center">
+                            <?php echo gh_get_icon('thermometer', 'w-5 h-5 text-accent'); ?>
+                        </div>
+                        <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary"><?php esc_html_e('Weather-Smart Shipping', 'greenhaven'); ?></h2>
+                    </div>
+                    <div class="gh-space-y-4 gh-text-muted-foreground">
+                        <p><?php esc_html_e('Live plants are sensitive to extreme temperatures. To protect your plants:', 'greenhaven'); ?></p>
+                        <ul class="gh-list-disc gh-list-inside gh-space-y-1">
+                            <li><?php esc_html_e('We monitor weather along all shipping routes', 'greenhaven'); ?></li>
+                            <li><?php esc_html_e('We may implement weather holds when temps fall below 35°F or exceed 95°F', 'greenhaven'); ?></li>
+                            <li><?php esc_html_e('Heat packs or cold packs are included when necessary (at no extra charge)', 'greenhaven'); ?></li>
+                        </ul>
+                        <div class="gh-bg-accent-10 gh-border gh-border-accent-20 gh-rounded-lg gh-p-4">
+                            <p class="gh-text-sm">
+                                <strong class="gh-text-foreground"><?php esc_html_e('Weather Hold Policy:', 'greenhaven'); ?></strong> 
+                                <?php esc_html_e('If conditions are unsafe, we\'ll hold your shipment and ship as soon as the forecast improves. Your patience ensures your plants arrive healthy!', 'greenhaven'); ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Box -->
+                <?php get_template_part('template-parts/components/policy', 'contact', array(
+                    'title' => __('Questions About Shipping?', 'greenhaven'),
+                    'description' => __('Our support team is happy to help with any shipping questions.', 'greenhaven'),
+                    'email' => 'support@greenhaven-nursery.com',
+                    'phone' => '(555) 123-4567'
+                )); ?>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<?php get_footer(); ?>
+```
+
+### page-live-arrival-guarantee.php
+
+```php
+<?php
+/**
+ * Template Name: Live Arrival Guarantee
+ * Converted from: src/pages/LiveArrivalGuarantee.tsx
+ */
+
+get_header();
+?>
+
+<main id="main" class="site-main">
+    <!-- Hero Section -->
+    <section class="gh-policy-hero">
+        <div class="gh-policy-hero__bg"></div>
+        <div class="gh-container gh-relative gh-z-10">
+            <div class="gh-max-w-3xl gh-mx-auto gh-text-center">
+                <div class="gh-inline-flex gh-items-center gh-gap-2 gh-bg-primary-10 gh-text-primary gh-px-4 gh-py-2 gh-rounded-full gh-mb-6">
+                    <?php echo gh_get_icon('shield', 'w-4 h-4'); ?>
+                    <span class="gh-text-sm gh-font-medium"><?php esc_html_e('100% Guaranteed', 'greenhaven'); ?></span>
+                </div>
+                <h1 class="gh-text-4xl md:gh-text-5xl gh-font-display gh-font-bold gh-text-foreground gh-mb-6">
+                    <?php the_title(); ?>
+                </h1>
+                <p class="gh-text-lg gh-text-muted-foreground">
+                    <?php esc_html_e('Every plant is guaranteed to arrive alive and healthy—or we\'ll make it right.', 'greenhaven'); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary Box -->
+    <section class="gh-py-8">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto">
+                <div class="gh-bg-primary-5 gh-border gh-border-primary-20 gh-rounded-xl gh-p-6">
+                    <h2 class="gh-text-lg gh-font-semibold gh-text-primary gh-mb-4 gh-flex gh-items-center gh-gap-2">
+                        <?php echo gh_get_icon('shield', 'w-5 h-5'); ?>
+                        <?php esc_html_e('Guarantee Summary', 'greenhaven'); ?>
+                    </h2>
+                    <div class="gh-grid sm:gh-grid-cols-2 gh-gap-4 gh-text-sm">
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Claim Window:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('48 hours from delivery', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Response Time:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('Within 24 hours', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Resolution:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('Replacement or full refund', 'greenhaven'); ?></span>
+                        </div>
+                        <div class="gh-flex gh-justify-between">
+                            <span class="gh-text-muted-foreground"><?php esc_html_e('Required:', 'greenhaven'); ?></span>
+                            <span class="gh-font-medium"><?php esc_html_e('Photos of plant & packaging', 'greenhaven'); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="gh-py-8 md:gh-py-12">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto gh-space-y-10">
+                
+                <!-- Our Promise -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Our Promise', 'greenhaven'); ?></h2>
+                    <p class="gh-text-muted-foreground">
+                        <?php esc_html_e('We stand behind every plant we ship. If your plant arrives damaged, dead, or significantly different from what was ordered, we\'ll replace it or issue a full refund—no questions asked. Your satisfaction is our top priority.', 'greenhaven'); ?>
+                    </p>
+                </div>
+
+                <!-- What's Covered -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('What\'s Covered', 'greenhaven'); ?></h2>
+                    <div class="gh-grid md:gh-grid-cols-2 gh-gap-6">
+                        <div class="gh-bg-card gh-rounded-xl gh-p-5 gh-border gh-border-primary-20">
+                            <h3 class="gh-font-semibold gh-text-primary gh-mb-3 gh-flex gh-items-center gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4'); ?>
+                                <?php esc_html_e('Covered by Guarantee', 'greenhaven'); ?>
+                            </h3>
+                            <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                                <li>• <?php esc_html_e('Plant arrives dead or dying', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Severe damage during shipping (broken stems, crushed leaves)', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Wrong plant shipped', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Missing plants from order', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Plant arrives frozen or heat-damaged', 'greenhaven'); ?></li>
+                            </ul>
+                        </div>
+                        <div class="gh-bg-card gh-rounded-xl gh-p-5 gh-border gh-border-destructive-20">
+                            <h3 class="gh-font-semibold gh-text-destructive gh-mb-3 gh-flex gh-items-center gh-gap-2">
+                                <?php echo gh_get_icon('x-circle', 'w-4 h-4'); ?>
+                                <?php esc_html_e('Not Covered', 'greenhaven'); ?>
+                            </h3>
+                            <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                                <li>• <?php esc_html_e('Claims made after 48 hours', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Damage due to improper care after delivery', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Package not retrieved promptly', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Minor cosmetic issues (normal transit stress)', 'greenhaven'); ?></li>
+                                <li>• <?php esc_html_e('Natural leaf drop or transplant shock', 'greenhaven'); ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to File a Claim -->
+                <div class="gh-bg-secondary gh-rounded-xl gh-p-6 md:gh-p-8">
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-6 gh-flex gh-items-center gh-gap-2">
+                        <?php echo gh_get_icon('clock', 'w-5 h-5'); ?>
+                        <?php esc_html_e('How to File a Claim', 'greenhaven'); ?>
+                    </h2>
+                    <ol class="gh-space-y-6">
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">1</span>
+                            <div>
+                                <p class="gh-font-medium gh-text-foreground gh-mb-1"><?php esc_html_e('Document the Issue (Within 48 Hours)', 'greenhaven'); ?></p>
+                                <p class="gh-text-sm gh-text-muted-foreground"><?php esc_html_e('Take clear photos immediately upon delivery. Don\'t discard any packaging.', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">2</span>
+                            <div>
+                                <p class="gh-font-medium gh-text-foreground gh-mb-1"><?php esc_html_e('Email Us', 'greenhaven'); ?></p>
+                                <p class="gh-text-sm gh-text-muted-foreground"><?php esc_html_e('Send an email to', 'greenhaven'); ?> <a href="mailto:support@greenhaven-nursery.com" class="gh-text-primary hover:gh-underline">support@greenhaven-nursery.com</a> <?php esc_html_e('with your order number, description, and photos.', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                        <li class="gh-flex gh-gap-4">
+                            <span class="gh-w-10 gh-h-10 gh-bg-primary gh-text-primary-foreground gh-rounded-full gh-flex gh-items-center gh-justify-center gh-font-bold gh-flex-shrink-0">3</span>
+                            <div>
+                                <p class="gh-font-medium gh-text-foreground gh-mb-1"><?php esc_html_e('We\'ll Respond Within 24 Hours', 'greenhaven'); ?></p>
+                                <p class="gh-text-sm gh-text-muted-foreground"><?php esc_html_e('Our team will review your claim and get back to you with a resolution—typically a free replacement or full refund.', 'greenhaven'); ?></p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Photo Requirements -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4 gh-flex gh-items-center gh-gap-2">
+                        <?php echo gh_get_icon('camera', 'w-5 h-5'); ?>
+                        <?php esc_html_e('Required Photos for Claims', 'greenhaven'); ?>
+                    </h2>
+                    <div class="gh-grid sm:gh-grid-cols-3 gh-gap-4">
+                        <div class="gh-bg-card gh-rounded-xl gh-p-4 gh-border gh-text-center">
+                            <div class="gh-w-12 gh-h-12 gh-bg-primary-10 gh-rounded-full gh-flex gh-items-center gh-justify-center gh-mx-auto gh-mb-3">
+                                <span class="gh-text-xl">🌱</span>
+                            </div>
+                            <p class="gh-font-medium gh-text-foreground gh-text-sm"><?php esc_html_e('The Plant', 'greenhaven'); ?></p>
+                            <p class="gh-text-xs gh-text-muted-foreground gh-mt-1"><?php esc_html_e('Clear photo showing the damage', 'greenhaven'); ?></p>
+                        </div>
+                        <div class="gh-bg-card gh-rounded-xl gh-p-4 gh-border gh-text-center">
+                            <div class="gh-w-12 gh-h-12 gh-bg-primary-10 gh-rounded-full gh-flex gh-items-center gh-justify-center gh-mx-auto gh-mb-3">
+                                <span class="gh-text-xl">📦</span>
+                            </div>
+                            <p class="gh-font-medium gh-text-foreground gh-text-sm"><?php esc_html_e('The Packaging', 'greenhaven'); ?></p>
+                            <p class="gh-text-xs gh-text-muted-foreground gh-mt-1"><?php esc_html_e('Box condition, inside packing', 'greenhaven'); ?></p>
+                        </div>
+                        <div class="gh-bg-card gh-rounded-xl gh-p-4 gh-border gh-text-center">
+                            <div class="gh-w-12 gh-h-12 gh-bg-primary-10 gh-rounded-full gh-flex gh-items-center gh-justify-center gh-mx-auto gh-mb-3">
+                                <span class="gh-text-xl">🏷️</span>
+                            </div>
+                            <p class="gh-font-medium gh-text-foreground gh-text-sm"><?php esc_html_e('Shipping Label', 'greenhaven'); ?></p>
+                            <p class="gh-text-xs gh-text-muted-foreground gh-mt-1"><?php esc_html_e('Visible tracking/order info', 'greenhaven'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resolution Options -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Resolution Options', 'greenhaven'); ?></h2>
+                    <div class="gh-grid sm:gh-grid-cols-3 gh-gap-4">
+                        <div class="gh-bg-card gh-rounded-xl gh-p-4 gh-border">
+                            <h3 class="gh-font-semibold gh-text-foreground gh-mb-2">🔄 <?php esc_html_e('Free Replacement', 'greenhaven'); ?></h3>
+                            <p class="gh-text-sm gh-text-muted-foreground"><?php esc_html_e('We\'ll ship a new plant at no charge (subject to availability).', 'greenhaven'); ?></p>
+                        </div>
+                        <div class="gh-bg-card gh-rounded-xl gh-p-4 gh-border">
+                            <h3 class="gh-font-semibold gh-text-foreground gh-mb-2">💳 <?php esc_html_e('Full Refund', 'greenhaven'); ?></h3>
+                            <p class="gh-text-sm gh-text-muted-foreground"><?php esc_html_e('Refund to your original payment method within 5–7 business days.', 'greenhaven'); ?></p>
+                        </div>
+                        <div class="gh-bg-card gh-rounded-xl gh-p-4 gh-border">
+                            <h3 class="gh-font-semibold gh-text-foreground gh-mb-2">🎁 <?php esc_html_e('Store Credit', 'greenhaven'); ?></h3>
+                            <p class="gh-text-sm gh-text-muted-foreground"><?php esc_html_e('Credit applied to your account for future purchases.', 'greenhaven'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Box -->
+                <?php get_template_part('template-parts/components/policy', 'contact', array(
+                    'title' => __('File a Claim', 'greenhaven'),
+                    'description' => __('Remember: Claims must be submitted within 48 hours of delivery.', 'greenhaven'),
+                    'email' => 'support@greenhaven-nursery.com',
+                    'phone' => '(555) 123-4567'
+                )); ?>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<?php get_footer(); ?>
+```
+
+### page-accessibility.php
+
+```php
+<?php
+/**
+ * Template Name: Accessibility Statement
+ * Converted from: src/pages/Accessibility.tsx
+ */
+
+get_header();
+?>
+
+<main id="main" class="site-main">
+    <!-- Hero Section -->
+    <section class="gh-policy-hero">
+        <div class="gh-policy-hero__bg"></div>
+        <div class="gh-container gh-relative gh-z-10">
+            <div class="gh-max-w-3xl gh-mx-auto gh-text-center">
+                <div class="gh-inline-flex gh-items-center gh-gap-2 gh-bg-primary-10 gh-text-primary gh-px-4 gh-py-2 gh-rounded-full gh-mb-6">
+                    <?php echo gh_get_icon('accessibility', 'w-4 h-4'); ?>
+                    <span class="gh-text-sm gh-font-medium"><?php esc_html_e('Inclusive Design', 'greenhaven'); ?></span>
+                </div>
+                <h1 class="gh-text-4xl md:gh-text-5xl gh-font-display gh-font-bold gh-text-foreground gh-mb-6">
+                    <?php the_title(); ?>
+                </h1>
+                <p class="gh-text-lg gh-text-muted-foreground">
+                    <?php esc_html_e('Our commitment to making gardening accessible to everyone.', 'greenhaven'); ?>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="gh-py-8 md:gh-py-12">
+        <div class="gh-container">
+            <div class="gh-max-w-4xl gh-mx-auto gh-space-y-8">
+                
+                <div class="gh-bg-primary-5 gh-border gh-border-primary-20 gh-rounded-xl gh-p-6">
+                    <p class="gh-text-sm gh-text-muted-foreground">
+                        <strong class="gh-text-foreground"><?php esc_html_e('Last Updated:', 'greenhaven'); ?></strong> <?php echo get_the_modified_date(); ?>
+                    </p>
+                </div>
+
+                <!-- Commitment -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Our Commitment', 'greenhaven'); ?></h2>
+                    <p class="gh-text-muted-foreground">
+                        <?php esc_html_e('Green Haven Nursery is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone and applying the relevant accessibility standards to ensure we provide equal access to all users.', 'greenhaven'); ?>
+                    </p>
+                </div>
+
+                <!-- Standards -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Accessibility Standards', 'greenhaven'); ?></h2>
+                    <p class="gh-text-muted-foreground gh-mb-4">
+                        <?php esc_html_e('We strive to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards.', 'greenhaven'); ?>
+                    </p>
+                    <div class="gh-bg-card gh-rounded-xl gh-p-5 gh-border">
+                        <h3 class="gh-font-semibold gh-text-foreground gh-mb-3"><?php esc_html_e('Our efforts include:', 'greenhaven'); ?></h3>
+                        <ul class="gh-space-y-2 gh-text-sm gh-text-muted-foreground">
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Providing text alternatives for non-text content', 'greenhaven'); ?></span>
+                            </li>
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Ensuring sufficient color contrast between text and backgrounds', 'greenhaven'); ?></span>
+                            </li>
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Making all functionality available from a keyboard', 'greenhaven'); ?></span>
+                            </li>
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Providing clear navigation and consistent page structure', 'greenhaven'); ?></span>
+                            </li>
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Using descriptive link text and headings', 'greenhaven'); ?></span>
+                            </li>
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Ensuring forms are accessible with proper labels', 'greenhaven'); ?></span>
+                            </li>
+                            <li class="gh-flex gh-items-start gh-gap-2">
+                                <?php echo gh_get_icon('check-circle', 'w-4 h-4 text-primary mt-0.5 flex-shrink-0'); ?>
+                                <span><?php esc_html_e('Supporting screen readers and assistive technologies', 'greenhaven'); ?></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Known Limitations -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Known Limitations', 'greenhaven'); ?></h2>
+                    <p class="gh-text-muted-foreground gh-mb-4">
+                        <?php esc_html_e('While we strive for full accessibility, we acknowledge that some areas of our website may not yet fully meet all accessibility standards:', 'greenhaven'); ?>
+                    </p>
+                    <ul class="gh-list-disc gh-list-inside gh-space-y-1 gh-text-muted-foreground">
+                        <li><?php esc_html_e('Some older product images may lack detailed alt text descriptions', 'greenhaven'); ?></li>
+                        <li><?php esc_html_e('Third-party content (such as embedded videos) may not be fully accessible', 'greenhaven'); ?></li>
+                        <li><?php esc_html_e('PDF documents may not be fully screen-reader compatible', 'greenhaven'); ?></li>
+                    </ul>
+                </div>
+
+                <!-- Assistive Technology -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Compatibility with Assistive Technology', 'greenhaven'); ?></h2>
+                    <p class="gh-text-muted-foreground"><?php esc_html_e('Our website is designed to be compatible with:', 'greenhaven'); ?></p>
+                    <ul class="gh-list-disc gh-list-inside gh-space-y-1 gh-text-muted-foreground gh-mt-4">
+                        <li><?php esc_html_e('Screen readers (JAWS, NVDA, VoiceOver, TalkBack)', 'greenhaven'); ?></li>
+                        <li><?php esc_html_e('Screen magnification software', 'greenhaven'); ?></li>
+                        <li><?php esc_html_e('Speech recognition software', 'greenhaven'); ?></li>
+                        <li><?php esc_html_e('Keyboard-only navigation', 'greenhaven'); ?></li>
+                    </ul>
+                </div>
+
+                <!-- Feedback -->
+                <div>
+                    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-text-primary gh-mb-4"><?php esc_html_e('Feedback and Contact', 'greenhaven'); ?></h2>
+                    <p class="gh-text-muted-foreground gh-mb-4">
+                        <?php esc_html_e('We welcome your feedback on the accessibility of our website. If you encounter any barriers or have suggestions for improvement, please let us know:', 'greenhaven'); ?>
+                    </p>
+                    <div class="gh-bg-card gh-rounded-xl gh-p-5 gh-border">
+                        <ul class="gh-space-y-3">
+                            <li class="gh-flex gh-items-center gh-gap-3 gh-text-muted-foreground">
+                                <?php echo gh_get_icon('mail', 'w-5 h-5 text-primary'); ?>
+                                <a href="mailto:accessibility@greenhaven-nursery.com" class="gh-text-primary hover:gh-underline">accessibility@greenhaven-nursery.com</a>
+                            </li>
+                            <li class="gh-flex gh-items-center gh-gap-3 gh-text-muted-foreground">
+                                <?php echo gh_get_icon('phone', 'w-5 h-5 text-primary'); ?>
+                                <a href="tel:+15551234567" class="gh-text-primary hover:gh-underline">(555) 123-4567</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="gh-text-muted-foreground gh-mt-4">
+                        <?php esc_html_e('We aim to respond to accessibility feedback within 2 business days.', 'greenhaven'); ?>
+                    </p>
+                </div>
+
+                <!-- Contact Box -->
+                <?php get_template_part('template-parts/components/policy', 'contact', array(
+                    'title' => __('Need Assistance?', 'greenhaven'),
+                    'description' => __('Our team is happy to assist you with any accessibility needs.', 'greenhaven'),
+                    'email' => 'accessibility@greenhaven-nursery.com',
+                    'phone' => '(555) 123-4567'
+                )); ?>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<?php get_footer(); ?>
+```
+
+### template-parts/components/policy-contact.php
+
+Reusable contact box component for all policy pages:
+
+```php
+<?php
+/**
+ * Policy Contact Box Component
+ * 
+ * @param array $args {
+ *     @type string $title       Box title
+ *     @type string $description Box description
+ *     @type string $email       Contact email
+ *     @type string $phone       Contact phone (optional)
+ * }
+ */
+
+$title = $args['title'] ?? __('Contact Us', 'greenhaven');
+$description = $args['description'] ?? '';
+$email = $args['email'] ?? 'support@greenhaven-nursery.com';
+$phone = $args['phone'] ?? '';
+?>
+
+<div class="gh-bg-primary gh-text-primary-foreground gh-rounded-xl gh-p-6 md:gh-p-8">
+    <h2 class="gh-text-xl gh-font-display gh-font-bold gh-mb-4"><?php echo esc_html($title); ?></h2>
+    <?php if ($description) : ?>
+        <p class="gh-text-primary-foreground-80 gh-mb-4"><?php echo esc_html($description); ?></p>
+    <?php endif; ?>
+    <div class="gh-flex gh-flex-col sm:gh-flex-row gh-gap-4">
+        <a href="mailto:<?php echo esc_attr($email); ?>" class="gh-inline-flex gh-items-center gh-gap-2 gh-text-primary-foreground hover:gh-underline">
+            <?php echo gh_get_icon('mail', 'w-4 h-4'); ?>
+            <?php echo esc_html($email); ?>
+        </a>
+        <?php if ($phone) : ?>
+        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>" class="gh-inline-flex gh-items-center gh-gap-2 gh-text-primary-foreground hover:gh-underline">
+            <?php echo gh_get_icon('phone', 'w-4 h-4'); ?>
+            <?php echo esc_html($phone); ?>
+        </a>
+        <?php endif; ?>
+    </div>
+    <p class="gh-text-xs gh-text-primary-foreground-60 gh-mt-4"><?php esc_html_e('Last updated:', 'greenhaven'); ?> <?php echo get_the_modified_date(); ?></p>
+</div>
+```
+
+### Policy Page CSS (add to style.css)
+
+```css
+/* Policy Pages Hero */
+.gh-policy-hero {
+    position: relative;
+    padding: 5rem 0 7rem;
+    overflow: hidden;
+}
+
+.gh-policy-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, 
+        hsl(var(--gh-primary) / 0.1) 0%, 
+        hsl(var(--gh-accent) / 0.05) 50%, 
+        hsl(var(--gh-primary) / 0.05) 100%
+    );
+}
+
+.gh-policy-hero__bg::before,
+.gh-policy-hero__bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+}
+
+.gh-policy-hero__bg::before {
+    top: 2.5rem;
+    left: 2.5rem;
+    width: 8rem;
+    height: 8rem;
+    background: hsl(var(--gh-primary) / 0.2);
+}
+
+.gh-policy-hero__bg::after {
+    bottom: 2.5rem;
+    right: 2.5rem;
+    width: 10rem;
+    height: 10rem;
+    background: hsl(var(--gh-accent) / 0.2);
+}
+
+@media (min-width: 768px) {
+    .gh-policy-hero {
+        padding: 7rem 0 9rem;
+    }
+}
+
+/* Policy Content Styles */
+.gh-section-heading {
+    font-size: 1.25rem;
+    font-family: var(--gh-font-display);
+    font-weight: 700;
+    color: hsl(var(--gh-primary));
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.gh-list {
+    list-style: disc;
+    list-style-position: inside;
+    color: hsl(var(--gh-muted-foreground));
+}
+
+.gh-list li {
+    margin-bottom: 0.25rem;
+}
+
+.gh-prose p {
+    color: hsl(var(--gh-muted-foreground));
+    margin-bottom: 1rem;
+}
+```
+
+---
+
 ## 📚 Additional Resources
 
 - [WooCommerce Template Structure](https://woocommerce.com/document/template-structure/)
