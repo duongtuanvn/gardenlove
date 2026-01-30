@@ -12,11 +12,14 @@ defined('ABSPATH') || exit;
 $hero_title = get_theme_mod('gh_hero_title', 'Healthy Plants Delivered to Your Door');
 $hero_subtitle = get_theme_mod('gh_hero_subtitle', 'From our greenhouse to your home — expertly grown plants shipped with care to thrive in your space.');
 $hero_badge = get_theme_mod('gh_hero_badge', 'Family-Owned Since 2015');
-$hero_image = get_theme_mod('gh_hero_image', GH_THEME_URI . '/assets/images/hero-greenhouse.jpg');
+$hero_image = get_theme_mod('gh_hero_image', '');
 $hero_cta_text = get_theme_mod('gh_hero_cta_text', 'Shop Plants');
 $hero_cta_url = get_theme_mod('gh_hero_cta_url', class_exists('WooCommerce') ? wc_get_page_permalink('shop') : home_url('/shop'));
 $hero_secondary_text = get_theme_mod('gh_hero_secondary_text', 'Our Guarantee');
 $hero_secondary_url = get_theme_mod('gh_hero_secondary_url', home_url('/guarantee'));
+
+// Check if we have a valid hero image
+$has_hero_image = !empty($hero_image) && $hero_image !== '';
 
 // Trust bar items
 $trust_items = array(
@@ -27,41 +30,43 @@ $trust_items = array(
 );
 ?>
 
-<section id="hero" class="gh-hero" style="position: relative; min-height: 85vh; display: flex; align-items: center;">
+<section id="hero" class="gh-hero">
     
-    <!-- Background Image -->
-    <div style="position: absolute; inset: 0;">
-        <img
-            src="<?php echo esc_url($hero_image); ?>"
-            alt="<?php echo esc_attr(get_bloginfo('name')); ?> greenhouse"
-            style="width: 100%; height: 100%; object-fit: cover;"
-            loading="eager"
-        >
-        <div class="gh-hero-overlay" style="position: absolute; inset: 0;"></div>
+    <!-- Background -->
+    <div class="gh-hero__background">
+        <?php if ($has_hero_image) : ?>
+            <img
+                src="<?php echo esc_url($hero_image); ?>"
+                alt="<?php echo esc_attr(get_bloginfo('name')); ?> greenhouse"
+                class="gh-hero__image"
+                loading="eager"
+            >
+        <?php endif; ?>
+        <div class="gh-hero-overlay"></div>
     </div>
 
     <!-- Content -->
-    <div class="gh-container" style="position: relative; z-index: 10; padding-top: 5rem; padding-bottom: 5rem;">
-        <div style="max-width: 42rem;">
+    <div class="gh-container gh-hero__content">
+        <div class="gh-hero__text">
             
             <!-- Badge -->
-            <span class="gh-animate-fade-in-up" style="display: inline-flex; align-items: center; gap: 0.5rem; background-color: hsl(var(--gh-accent) / 0.9); color: hsl(var(--gh-accent-foreground)); font-size: 0.875rem; font-weight: 500; padding: 0.5rem 1rem; border-radius: 9999px; margin-bottom: 1.5rem;">
+            <span class="gh-hero__badge gh-animate-fade-in-up">
                 <?php echo gh_get_icon('leaf', 'w-4 h-4'); ?>
                 <?php echo esc_html($hero_badge); ?>
             </span>
             
             <!-- Title -->
-            <h1 class="gh-animate-fade-in-up gh-delay-100" style="font-size: clamp(2.25rem, 5vw, 4.5rem); font-weight: 700; color: hsl(var(--gh-primary-foreground)); margin-bottom: 1.5rem; line-height: 1.1;">
+            <h1 class="gh-hero__title gh-animate-fade-in-up gh-delay-100">
                 <?php echo esc_html($hero_title); ?>
             </h1>
             
             <!-- Subtitle -->
-            <p class="gh-animate-fade-in-up gh-delay-200" style="font-size: clamp(1rem, 2vw, 1.25rem); color: hsl(var(--gh-primary-foreground) / 0.9); margin-bottom: 2rem; max-width: 32rem; line-height: 1.6;">
+            <p class="gh-hero__subtitle gh-animate-fade-in-up gh-delay-200">
                 <?php echo esc_html($hero_subtitle); ?>
             </p>
             
             <!-- CTAs -->
-            <div class="gh-animate-fade-in-up gh-delay-300 gh-flex gh-flex-col sm:gh-flex-row gh-gap-4">
+            <div class="gh-hero__ctas gh-animate-fade-in-up gh-delay-300">
                 <a href="<?php echo esc_url($hero_cta_url); ?>" class="gh-btn gh-btn-hero gh-btn-xl">
                     <?php echo esc_html($hero_cta_text); ?>
                     <?php echo gh_get_icon('arrow-right', 'w-5 h-5'); ?>
@@ -75,9 +80,9 @@ $trust_items = array(
     </div>
 
     <!-- Trust Bar -->
-    <div style="position: absolute; bottom: 0; left: 0; right: 0; background-color: hsl(var(--gh-background) / 0.95); backdrop-filter: blur(4px);">
-        <div class="gh-container gh-py-4">
-            <div class="gh-flex gh-flex-wrap gh-justify-center lg:gh-justify-between gh-items-center gh-gap-6">
+    <div class="gh-hero__trust-bar">
+        <div class="gh-container">
+            <div class="gh-hero__trust-items">
                 <?php foreach ($trust_items as $item) : ?>
                     <div class="gh-trust-item">
                         <div class="gh-trust-item__icon">
