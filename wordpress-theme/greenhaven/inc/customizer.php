@@ -293,10 +293,3 @@ function gh_customize_register($wp_customize) {
     ));
 }
 add_action('customize_register', 'gh_customize_register');
-
-/**
- * Get customizer option with theme_mod fallback
- */
-function gh_get_option($key, $default = '') {
-    return get_theme_mod('gh_' . $key, $default);
-}
