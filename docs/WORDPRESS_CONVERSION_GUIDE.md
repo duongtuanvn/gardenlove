@@ -1015,6 +1015,677 @@ $average_rating = $product->get_average_rating();
 
 ---
 
+## 📦 Single Product Template (ProductDetail.tsx)
+
+### woocommerce/single-product.php
+
+```php
+<?php
+/**
+ * Single Product Template
+ * Converted from: src/pages/ProductDetail.tsx
+ * Features: Social proof, variant selector, care guide, reviews
+ */
+
+defined('ABSPATH') || exit;
+
+get_header();
+
+global $product;
+
+if (!$product || !is_a($product, 'WC_Product')) {
+    wc_get_template('single-product/product-not-found.php');
+    return;
+}
+
+// Get product data
+$product_id = $product->get_id();
+$images = $product->get_gallery_image_ids();
+array_unshift($images, $product->get_image_id()); // Add main image first
+$average_rating = $product->get_average_rating();
+$review_count = $product->get_review_count();
+$stock_quantity = $product->get_stock_quantity();
+$is_on_sale = $product->is_on_sale();
+$is_variable = $product->is_type('variable');
+
+// Calculate delivery date
+$delivery_date = date('l, M j', strtotime('+10 days'));
+?>
+
+<div class="min-h-screen bg-background">
+
+    <!-- Breadcrumb -->
+    <div class="bg-muted/30 py-3 border-b border-border">
+        <div class="gh-container">
+            <nav class="flex items-center gap-2 text-sm flex-wrap">
+                <a href="<?php echo home_url(); ?>" class="text-muted-foreground hover:text-primary transition-colors">
+                    Home
+                </a>
+                <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-muted-foreground hover:text-primary transition-colors">
+                    Shop
+                </a>
+                <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <?php
+                $terms = get_the_terms($product_id, 'product_cat');
+                if ($terms && !is_wp_error($terms)) :
+                    $primary_term = $terms[0];
+                ?>
+                <a href="<?php echo get_term_link($primary_term); ?>" class="text-muted-foreground hover:text-primary transition-colors">
+                    <?php echo esc_html($primary_term->name); ?>
+                </a>
+                <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <?php endif; ?>
+                <span class="text-foreground font-medium"><?php echo $product->get_name(); ?></span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- SECTION 1: Product Overview -->
+    <section class="gh-container py-8 md:py-12">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            
+            <!-- Image Gallery -->
+            <div class="space-y-4">
+                <div class="relative w-full rounded-2xl overflow-hidden bg-muted">
+                    <div class="aspect-[4/3] sm:aspect-square">
+                        <img
+                            id="gh-main-image"
+                            src="<?php echo wp_get_attachment_image_url($images[0], 'large'); ?>"
+                            alt="<?php echo esc_attr($product->get_name()); ?>"
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+                    
+                    <!-- Sale Badge -->
+                    <?php if ($is_on_sale && $product->get_regular_price()) : 
+                        $discount = round((1 - $product->get_sale_price() / $product->get_regular_price()) * 100);
+                    ?>
+                    <div class="absolute top-3 left-3 sm:top-4 sm:left-4">
+                        <span class="text-xs sm:text-sm font-bold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-accent text-accent-foreground shadow-sm">
+                            -<?php echo $discount; ?>%
+                        </span>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <!-- Wishlist Button -->
+                    <button class="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors gh-wishlist-btn" data-product-id="<?php echo $product_id; ?>">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Thumbnail Gallery -->
+                <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+                    <?php foreach ($images as $index => $image_id) : 
+                        $thumb_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                        $full_url = wp_get_attachment_image_url($image_id, 'large');
+                    ?>
+                    <button
+                        class="gh-thumb-btn flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all <?php echo $index === 0 ? 'border-primary ring-2 ring-primary/20' : 'border-transparent hover:border-border'; ?>"
+                        data-full-image="<?php echo esc_url($full_url); ?>"
+                    >
+                        <img
+                            src="<?php echo esc_url($thumb_url); ?>"
+                            alt="<?php echo esc_attr($product->get_name()); ?> view <?php echo $index + 1; ?>"
+                            class="w-full h-full object-cover"
+                        >
+                    </button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="space-y-6 min-w-0 overflow-hidden">
+                <div>
+                    <!-- Category -->
+                    <?php if ($terms && !is_wp_error($terms)) : ?>
+                    <p class="text-sm text-primary font-medium mb-2">
+                        <?php echo esc_html($terms[0]->name); ?>
+                    </p>
+                    <?php endif; ?>
+                    
+                    <!-- Title -->
+                    <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground mb-3 leading-tight whitespace-normal break-words">
+                        <?php echo $product->get_name(); ?>
+                    </h1>
+                    
+                    <!-- Rating -->
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1">
+                            <?php for ($i = 1; $i <= 5; $i++) : ?>
+                            <svg class="w-5 h-5 <?php echo $i <= $average_rating ? 'fill-accent text-accent' : 'fill-muted text-muted'; ?>" viewBox="0 0 20 20">
+                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <?php endfor; ?>
+                        </div>
+                        <span class="font-semibold"><?php echo number_format($average_rating, 1); ?></span>
+                        <span class="text-muted-foreground">(<?php echo $review_count; ?> reviews)</span>
+                    </div>
+
+                    <!-- ⭐ Social Proof & Urgency - From React -->
+                    <?php 
+                    // Generate random but consistent numbers based on product ID
+                    $viewing_now = (($product_id % 8) + 3); // 3-10 people
+                    $added_to_cart = (($product_id % 4) + 1); // 1-4 people
+                    $stock_left = $stock_quantity ?: (($product_id % 6) + 2); // 2-7 items
+                    ?>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm mt-3">
+                        <!-- People Viewing Now -->
+                        <div class="flex items-center gap-1.5 text-muted-foreground">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                            <span><span class="font-medium text-foreground"><?php echo $viewing_now; ?> people</span> viewing now</span>
+                        </div>
+                        
+                        <!-- Added to Cart -->
+                        <div class="flex items-center gap-1.5 text-muted-foreground">
+                            <svg class="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <span><span class="font-medium text-foreground"><?php echo $added_to_cart; ?></span> added to cart</span>
+                        </div>
+                        
+                        <!-- Stock Warning -->
+                        <div class="flex items-center gap-1.5 text-accent">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/>
+                            </svg>
+                            <span class="font-medium">Only <?php echo $stock_left; ?> left in stock!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price with Sale styling -->
+                <div class="flex items-center gap-3 flex-wrap">
+                    <?php if ($is_on_sale) : ?>
+                        <span class="text-3xl font-bold text-accent">
+                            <?php echo wc_price($product->get_sale_price()); ?>
+                        </span>
+                        <span class="text-xl text-muted-foreground line-through">
+                            <?php echo wc_price($product->get_regular_price()); ?>
+                        </span>
+                        <span class="text-sm font-bold px-2.5 py-1 rounded-full bg-accent/10 text-accent">
+                            Save <?php echo $discount; ?>%
+                        </span>
+                    <?php else : ?>
+                        <span class="text-3xl font-bold text-foreground">
+                            <?php echo $product->get_price_html(); ?>
+                        </span>
+                    <?php endif; ?>
+                </div>
+
+                <!-- ⭐ Variant Selector - From React -->
+                <?php if ($is_variable) : 
+                    $available_variations = $product->get_available_variations();
+                    $attributes = $product->get_variation_attributes();
+                ?>
+                <form class="variations_form cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>" method="post" enctype="multipart/form-data" data-product_id="<?php echo $product_id; ?>">
+                    <div class="w-full min-w-0 overflow-hidden space-y-6">
+                        <?php foreach ($attributes as $attribute_name => $options) : 
+                            $attribute_label = wc_attribute_label($attribute_name);
+                        ?>
+                        <div class="min-w-0">
+                            <label class="text-sm font-medium text-foreground mb-3 block"><?php echo esc_html($attribute_label); ?></label>
+                            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-2">
+                                <?php foreach ($options as $option) : ?>
+                                <button
+                                    type="button"
+                                    class="gh-variant-btn w-full sm:w-auto px-4 py-2.5 rounded-full border-2 text-sm font-medium transition-all text-left sm:text-center border-border hover:border-primary/50 text-foreground bg-background"
+                                    data-attribute="<?php echo esc_attr($attribute_name); ?>"
+                                    data-value="<?php echo esc_attr($option); ?>"
+                                >
+                                    <?php echo esc_html($option); ?>
+                                </button>
+                                <?php endforeach; ?>
+                            </div>
+                            <input type="hidden" name="attribute_<?php echo sanitize_title($attribute_name); ?>" value="">
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    
+                    <input type="hidden" name="variation_id" value="" class="variation_id">
+                    <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+                    <input type="hidden" name="add-to-cart" value="<?php echo $product_id; ?>">
+                    
+                    <!-- Quantity & Add to Cart -->
+                    <div class="space-y-3 mt-6">
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center border border-border rounded-lg">
+                                <button type="button" class="gh-qty-minus w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-muted transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                                    </svg>
+                                </button>
+                                <input type="number" name="quantity" value="1" min="1" class="gh-qty-input w-10 sm:w-12 text-center font-medium border-0 bg-transparent focus:outline-none">
+                                <button type="button" class="gh-qty-plus w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-muted transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button type="submit" class="gh-btn gh-btn-primary w-full h-14 text-base font-semibold">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                Add to Cart
+                            </button>
+                            <button type="button" class="gh-buy-now gh-btn w-full h-14 text-base font-semibold bg-accent hover:bg-accent/90 text-accent-foreground">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <?php else : ?>
+                <!-- Simple Product Add to Cart -->
+                <form class="cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>" method="post" enctype="multipart/form-data">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center border border-border rounded-lg">
+                                <button type="button" class="gh-qty-minus w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-muted transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                                    </svg>
+                                </button>
+                                <input type="number" name="quantity" value="1" min="1" class="gh-qty-input w-10 sm:w-12 text-center font-medium border-0 bg-transparent focus:outline-none">
+                                <button type="button" class="gh-qty-plus w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-muted transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="add-to-cart" value="<?php echo $product_id; ?>">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button type="submit" class="gh-btn gh-btn-primary w-full h-14 text-base font-semibold <?php echo !$product->is_in_stock() ? 'opacity-50 cursor-not-allowed' : ''; ?>" <?php echo !$product->is_in_stock() ? 'disabled' : ''; ?>>
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <?php echo $product->is_in_stock() ? 'Add to Cart' : 'Out of Stock'; ?>
+                            </button>
+                            <button type="button" class="gh-buy-now gh-btn w-full h-14 text-base font-semibold bg-accent hover:bg-accent/90 text-accent-foreground <?php echo !$product->is_in_stock() ? 'opacity-50 cursor-not-allowed' : ''; ?>" <?php echo !$product->is_in_stock() ? 'disabled' : ''; ?>>
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <?php endif; ?>
+
+                <!-- Plant Care Info -->
+                <?php 
+                // Get custom fields for plant care (can be set via ACF or custom meta)
+                $usda_zone = get_post_meta($product_id, '_gh_usda_zone', true) ?: '9-11';
+                $sunlight = get_post_meta($product_id, '_gh_sunlight', true) ?: 'Full sun to partial shade';
+                $soil_type = get_post_meta($product_id, '_gh_soil_type', true) ?: 'Well-draining soil';
+                $planting = get_post_meta($product_id, '_gh_planting_time', true) ?: 'Spring or Fall';
+                ?>
+                <div class="border-t border-border pt-6">
+                    <h3 class="text-sm font-semibold text-foreground mb-4">Plant Care</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-muted-foreground">USDA Zone</p>
+                                <p class="text-sm font-medium"><?php echo esc_html($usda_zone); ?></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-muted-foreground">Sunlight</p>
+                                <p class="text-sm font-medium"><?php echo esc_html($sunlight); ?></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-muted-foreground">Soil Type</p>
+                                <p class="text-sm font-medium"><?php echo esc_html($soil_type); ?></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-muted-foreground">Planting</p>
+                                <p class="text-sm font-medium"><?php echo esc_html($planting); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping & Trust Badges -->
+                <div class="bg-muted/30 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-foreground">Free Shipping on $75+</p>
+                            <p class="text-sm text-muted-foreground">Est. delivery: <?php echo $delivery_date; ?></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-foreground">30-Day Returns</p>
+                            <p class="text-sm text-muted-foreground">Hassle-free money back guarantee</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <div>
+                            <p class="font-medium text-foreground">100% Live Arrival Guarantee</p>
+                            <p class="text-sm text-muted-foreground">We guarantee healthy plants</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Product Description & Features -->
+    <section class="bg-muted/30 py-12">
+        <div class="gh-container">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Description -->
+                <div>
+                    <h2 class="text-2xl font-display font-bold text-foreground mb-4">About This Plant</h2>
+                    <div class="prose prose-green max-w-none text-muted-foreground">
+                        <?php echo wpautop($product->get_description()); ?>
+                    </div>
+                </div>
+                
+                <!-- Features -->
+                <?php 
+                $features = get_post_meta($product_id, '_gh_features', true);
+                if (!$features) {
+                    $features = array(
+                        'Grown in our family greenhouse',
+                        'Carefully packaged for safe shipping',
+                        'Includes care guide',
+                        'Expert support available'
+                    );
+                }
+                ?>
+                <div>
+                    <h2 class="text-2xl font-display font-bold text-foreground mb-4">Why You'll Love It</h2>
+                    <ul class="space-y-3">
+                        <?php foreach ($features as $feature) : ?>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-foreground"><?php echo esc_html($feature); ?></span>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Customer Reviews -->
+    <section class="gh-section">
+        <div class="gh-container">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">Customer Reviews</h2>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center">
+                            <?php for ($i = 1; $i <= 5; $i++) : ?>
+                            <svg class="w-5 h-5 <?php echo $i <= $average_rating ? 'fill-accent text-accent' : 'fill-muted text-muted'; ?>" viewBox="0 0 20 20">
+                                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                            </svg>
+                            <?php endfor; ?>
+                        </div>
+                        <span class="font-semibold"><?php echo number_format($average_rating, 1); ?> out of 5</span>
+                        <span class="text-muted-foreground">(<?php echo $review_count; ?> reviews)</span>
+                    </div>
+                </div>
+                <button class="gh-btn gh-btn-primary">
+                    Write a Review
+                </button>
+            </div>
+
+            <!-- Reviews List -->
+            <?php
+            $comments = get_comments(array(
+                'post_id' => $product_id,
+                'status' => 'approve',
+                'type' => 'review',
+                'number' => 5
+            ));
+            
+            if ($comments) : ?>
+            <div class="space-y-6">
+                <?php foreach ($comments as $comment) : 
+                    $rating = get_comment_meta($comment->comment_ID, 'rating', true);
+                ?>
+                <div class="bg-card rounded-2xl p-6 shadow-soft">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-semibold text-foreground"><?php echo esc_html($comment->comment_author); ?></span>
+                                <span class="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                    Verified
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                <svg class="w-4 h-4 <?php echo $i <= $rating ? 'fill-accent text-accent' : 'fill-muted text-muted'; ?>" viewBox="0 0 20 20">
+                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                </svg>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+                        <span class="text-sm text-muted-foreground"><?php echo date('M j, Y', strtotime($comment->comment_date)); ?></span>
+                    </div>
+                    <p class="text-foreground"><?php echo esc_html($comment->comment_content); ?></p>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <?php else : ?>
+            <div class="text-center py-12 bg-card rounded-2xl">
+                <p class="text-muted-foreground mb-4">Be the first to review this product!</p>
+                <button class="gh-btn gh-btn-primary">Write a Review</button>
+            </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Related Products -->
+    <?php
+    $related_ids = wc_get_related_products($product_id, 4);
+    if ($related_ids) :
+    ?>
+    <section class="bg-muted/30 py-12">
+        <div class="gh-container">
+            <h2 class="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">You May Also Like</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <?php
+                foreach ($related_ids as $related_id) {
+                    $post_object = get_post($related_id);
+                    setup_postdata($GLOBALS['post'] =& $post_object);
+                    wc_get_template_part('content', 'product');
+                }
+                wp_reset_postdata();
+                ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+</div>
+
+<?php get_footer(); ?>
+```
+
+### assets/js/product.js
+
+```javascript
+/**
+ * Product Page JavaScript
+ * Handles: Image gallery, variant selection, quantity, AJAX cart
+ */
+
+(function() {
+    'use strict';
+
+    // Image Gallery
+    const mainImage = document.getElementById('gh-main-image');
+    const thumbButtons = document.querySelectorAll('.gh-thumb-btn');
+    
+    thumbButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const fullImage = this.dataset.fullImage;
+            if (mainImage && fullImage) {
+                mainImage.src = fullImage;
+            }
+            
+            // Update active state
+            thumbButtons.forEach(b => {
+                b.classList.remove('border-primary', 'ring-2', 'ring-primary/20');
+                b.classList.add('border-transparent');
+            });
+            this.classList.remove('border-transparent');
+            this.classList.add('border-primary', 'ring-2', 'ring-primary/20');
+        });
+    });
+
+    // Variant Selector
+    const variantButtons = document.querySelectorAll('.gh-variant-btn');
+    
+    variantButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const attribute = this.dataset.attribute;
+            const value = this.dataset.value;
+            
+            // Update hidden input
+            const input = document.querySelector(`input[name="attribute_${attribute.toLowerCase().replace(' ', '-')}"]`);
+            if (input) {
+                input.value = value;
+            }
+            
+            // Update active state for this attribute group
+            const siblings = document.querySelectorAll(`.gh-variant-btn[data-attribute="${attribute}"]`);
+            siblings.forEach(s => {
+                s.classList.remove('border-primary', 'bg-primary/5', 'text-primary');
+                s.classList.add('border-border', 'text-foreground');
+            });
+            this.classList.remove('border-border', 'text-foreground');
+            this.classList.add('border-primary', 'bg-primary/5', 'text-primary');
+            
+            // Trigger WooCommerce variation change
+            if (typeof jQuery !== 'undefined') {
+                jQuery('.variations_form').trigger('check_variations');
+            }
+        });
+    });
+
+    // Quantity Controls
+    const qtyMinus = document.querySelectorAll('.gh-qty-minus');
+    const qtyPlus = document.querySelectorAll('.gh-qty-plus');
+    
+    qtyMinus.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.gh-qty-input');
+            if (input && parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        });
+    });
+    
+    qtyPlus.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.gh-qty-input');
+            if (input) {
+                input.value = parseInt(input.value) + 1;
+            }
+        });
+    });
+
+    // Buy Now Button - Add to cart and redirect
+    const buyNowButtons = document.querySelectorAll('.gh-buy-now');
+    
+    buyNowButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = this.closest('form');
+            if (form) {
+                // Create a hidden input to indicate buy now
+                const buyNowInput = document.createElement('input');
+                buyNowInput.type = 'hidden';
+                buyNowInput.name = 'gh_buy_now';
+                buyNowInput.value = '1';
+                form.appendChild(buyNowInput);
+                form.submit();
+            }
+        });
+    });
+
+    // Social Proof - Randomize numbers periodically (optional)
+    function updateSocialProof() {
+        const viewingEl = document.querySelector('[data-social="viewing"]');
+        const cartEl = document.querySelector('[data-social="cart"]');
+        
+        if (viewingEl) {
+            const base = parseInt(viewingEl.dataset.base) || 5;
+            const variation = Math.floor(Math.random() * 3) - 1; // -1 to +1
+            viewingEl.textContent = Math.max(2, base + variation);
+        }
+        
+        if (cartEl) {
+            const base = parseInt(cartEl.dataset.base) || 2;
+            const variation = Math.random() > 0.7 ? 1 : 0;
+            cartEl.textContent = Math.max(1, base + variation);
+        }
+    }
+    
+    // Update social proof every 30 seconds
+    // setInterval(updateSocialProof, 30000);
+
+})();
+```
+
+---
+
 ## ⚙️ Setup Files
 
 ### functions.php
